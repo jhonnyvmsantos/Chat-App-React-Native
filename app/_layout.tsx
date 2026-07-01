@@ -5,10 +5,18 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
+import { verifyAndCreateCollections } from '@/src/Services/collectionServices';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+
+export type CollectionName =
+  | "users"
+  | "chats_private"
+  | "chats_group"
+  | "settings";
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
+  ErrorBoundary
 } from 'expo-router';
 
 export const unstable_settings = {
@@ -45,12 +53,31 @@ export default function RootLayout() {
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
+  useEffect(() => {
+    async function initializeCollections() {
+      const collections: CollectionName[] = [
+        "users",
+        "chats_private",
+        "chats_group",
+        "settings",
+      ];
+
+      for (const collection of collections) {
+        await verifyAndCreateCollections(collection);
+      }
+    }
+
+    initializeCollections();
+  }, []);
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <SafeAreaProvider>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        </Stack>
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
