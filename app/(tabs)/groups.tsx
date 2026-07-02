@@ -1,20 +1,47 @@
-import { StyleSheet, Text, View } from 'react-native';
+import ConversationItem from "@/components/chatItem";
+import { Chat } from "@/types/chat";
+import { FlatList, StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabListGroupsChatScreen() {
+
+  const chat: Chat[] = [
+    {
+      id: "grupo1",
+      name: "Família",
+      lastMessage: "Carlos: Bom dia!",
+      lastMessageTime: "09:15",
+      unreadCount: 8,
+    },
+    {
+      id: "grupo2",
+      name: "Equipe Dev",
+      lastMessage: "Deploy realizado",
+      lastMessageTime: "Ontem",
+    },
+  ];
+
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Group's Chats</Text>
-    </View>
+
+      <FlatList
+        data={chat}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <ConversationItem chat={item} />
+        )}
+      />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1
   },
   title: {
+    textAlign: "center",
     fontSize: 20,
     fontWeight: 'bold',
   },
