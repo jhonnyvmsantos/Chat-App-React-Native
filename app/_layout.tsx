@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
-import { verifyAndCreateCollections } from '@/src/Services/collectionServices';
+import { verifyAndCreateCollections } from '@/Services/collectionServices';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export type CollectionName =
@@ -15,8 +15,8 @@ export type CollectionName =
   | "settings";
 
 export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary
+    // Catch any errors thrown by the Layout component.
+    ErrorBoundary
 } from 'expo-router';
 
 export const unstable_settings = {

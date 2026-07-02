@@ -6,7 +6,7 @@ import {
   query,
   setDoc,
 } from "firebase/firestore";
-import { CollectionName } from "../../app/_layout";
+import { CollectionName } from "../app/_layout";
 import { AppError } from "../errors/AppError";
 import { ErrorCode } from "../errors/ErrorCodes";
 import { db } from "../firebase/config";
