@@ -1,4 +1,4 @@
-import { ErrorCode } from "./ErrorCodes";
+import { ErrorCode } from "../enums/ErrorCodes";
 
 export class AppError extends Error {
   public readonly code: ErrorCode;

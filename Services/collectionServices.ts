@@ -7,8 +7,8 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { CollectionName } from "../app/_layout";
+import { ErrorCode } from "../enums/ErrorCodes";
 import { AppError } from "../errors/AppError";
-import { ErrorCode } from "../errors/ErrorCodes";
 import { db } from "../firebase/config";
 
 async function collectionExists(name: string): Promise<boolean> {

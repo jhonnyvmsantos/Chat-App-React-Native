@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function TabListPrivateChatScreen() {
+export default function TabListGroupsChatScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Private's Chats</Text>
+      <Text style={styles.title}>Group's Chats</Text>
     </View>
   );
 }
