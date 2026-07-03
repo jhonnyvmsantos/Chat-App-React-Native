@@ -1,5 +1,3 @@
-// src/components/ConversationItem.tsx
-
 import { Chat } from "@/types/chat";
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";

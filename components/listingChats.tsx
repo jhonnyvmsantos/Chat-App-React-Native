@@ -2,7 +2,7 @@
 
 import { Chat } from "@/types/chat";
 import { FlatList } from "react-native";
-import ChatItem from "./chatItem";
+import ChatItem from "./chat/ChatItem";
 
 interface Props {
     chat: Chat[];
