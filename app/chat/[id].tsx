@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet } from "react-native";
 
 import ChatHeader from "@/components/chat/ChatHeader";
 import MessageBubble from "@/components/chat/MessageBubble";
@@ -7,6 +7,7 @@ import MessageInput from "@/components/chat/MessageInput";
 import { messages } from "@/mocks/messages";
 
 import { Info } from "@/types/info";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const info: Info = {
   id: "1",
@@ -16,7 +17,7 @@ const info: Info = {
 
 export default function ChatScreen() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ChatHeader info={info} />
 
       <FlatList
@@ -34,7 +35,7 @@ export default function ChatScreen() {
       />
 
       <MessageInput />
-    </View>
+    </SafeAreaView>
   );
 }
 

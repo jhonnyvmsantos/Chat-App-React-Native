@@ -9,12 +9,23 @@ interface Props {
 
 export default function ChatHeader({ info }: Props) {
     function openProfile() {
-        // if (info.type === "private") {
-        //   router.push(`/profile/user/${info.id}`);
-        //   return;
-        // }
+        if (info.type === "private") {
+            router.push({
+                pathname: "/profile/user/[id]",
+                params: {
+                    id: info.id,
+                },
+            });
 
-        // router.push(`/profile/group/${info.id}`);
+            return;
+        }
+
+        router.push({
+            pathname: "/profile/group/[id]",
+            params: {
+                id: info.id,
+            },
+        });
     }
 
     return (
