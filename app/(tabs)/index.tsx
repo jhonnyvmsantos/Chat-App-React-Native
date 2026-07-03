@@ -1,13 +1,14 @@
 import ChatItem from "@/components/chat/ChatItem";
-import { Chat } from "@/types/chat";
-import { FlatList, StyleSheet, Text } from 'react-native';
+import { Info } from "@/types/info";
+
+import { FlatList, StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabListPrivateChatScreen() {
-
-  const chat: Chat[] = [
+  const chats: Info[] = [
     {
       id: "1",
+      type: "private",
       name: "Maria",
       lastMessage: "Oi, tudo bem?",
       lastMessageTime: "18:42",
@@ -15,22 +16,25 @@ export default function TabListPrivateChatScreen() {
     },
     {
       id: "2",
+      type: "private",
       name: "João",
       lastMessage: "Valeu!",
       lastMessageTime: "Ontem",
+      unreadCount: 0,
     },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Private's Chats</Text>
+      <Text style={styles.title}>Private Chats</Text>
 
       <FlatList
-        data={chat}
+        data={chats}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ChatItem chat={item} />
+          <ChatItem info={item} />
         )}
+        contentContainerStyle={styles.listContent}
       />
     </SafeAreaView>
   );
@@ -38,16 +42,17 @@ export default function TabListPrivateChatScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
+
   title: {
-    textAlign: 'center',
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 22,
+    fontWeight: "700",
+    textAlign: "center",
+    marginVertical: 16,
   },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+
+  listContent: {
+    paddingBottom: 20,
   },
 });

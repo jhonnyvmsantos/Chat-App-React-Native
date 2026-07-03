@@ -1,12 +1,12 @@
-import { Chat } from "@/types/chat";
+import { Info } from "@/types/info";
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface Props {
-    chat: Chat;
+    info: Info;
 }
 
-export default function ChatItem({ chat }: Props) {
+export default function ChatItem({ info }: Props) {
     return (
         <Pressable
             style={styles.container}
@@ -14,20 +14,20 @@ export default function ChatItem({ chat }: Props) {
                 router.push({
                     pathname: "/chat/[id]",
                     params: {
-                        id: chat.id,
+                        id: info.id,
                     },
                 })
             }
         >
-            {chat.avatar ? (
+            {info.avatar ? (
                 <Image
-                    source={{ uri: chat.avatar }}
+                    source={{ uri: info.avatar }}
                     style={styles.avatar}
                 />
             ) : (
                 <View style={styles.avatarPlaceholder}>
                     <Text style={styles.avatarLetter}>
-                        {chat.name[0]}
+                        {info.name[0]}
                     </Text>
                 </View>
             )}
@@ -35,11 +35,11 @@ export default function ChatItem({ chat }: Props) {
             <View style={styles.content}>
                 <View style={styles.header}>
                     <Text style={styles.name}>
-                        {chat.name}
+                        {info.name}
                     </Text>
 
                     <Text style={styles.time}>
-                        {chat.lastMessageTime}
+                        {info.lastMessageTime}
                     </Text>
                 </View>
 
@@ -48,13 +48,13 @@ export default function ChatItem({ chat }: Props) {
                         numberOfLines={1}
                         style={styles.message}
                     >
-                        {chat.lastMessage}
+                        {info.lastMessage}
                     </Text>
 
-                    {!!chat.unreadCount && (
+                    {!!info.unreadCount && (
                         <View style={styles.badge}>
                             <Text style={styles.badgeText}>
-                                {chat.unreadCount}
+                                {info.unreadCount}
                             </Text>
                         </View>
                     )}

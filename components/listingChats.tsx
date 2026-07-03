@@ -1,22 +1,22 @@
 // components/ConversationList.tsx
 
-import { Chat } from "@/types/chat";
+import { Info } from "@/types/info";
 import { FlatList } from "react-native";
 import ChatItem from "./chat/ChatItem";
 
 interface Props {
-    chat: Chat[];
+    info: Info[];
 }
 
 export default function listingChats({
-    chat,
+    info,
 }: Props) {
     return (
         <FlatList
-            data={chat}
+            data={info}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-                <ChatItem chat={item} />
+                <ChatItem info={item} />
             )}
         />
     );

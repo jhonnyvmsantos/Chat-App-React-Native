@@ -1,8 +1,12 @@
 export interface Info {
   id: string;
-  type: "private" | "group";
   name: string;
-  description?: string;
+  type: "private" | "group";
+  lastMessage?: string;
+  lastMessageTime?: string;
+  unreadCount?: number;
   avatar?: string;
+  isOnline?: boolean;
+  description?: string;
   members?: number;
 }

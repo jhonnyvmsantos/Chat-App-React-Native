@@ -1,6 +1,6 @@
 import { Message } from "@/types/message";
 
-export const messages: Message[] = [
+export const privateMessages: Message[] = [
   {
     id: "1",
     senderId: "1",
@@ -8,6 +8,7 @@ export const messages: Message[] = [
     text: "Oi!",
     createdAt: "18:20",
     isMine: false,
+    status: "read",
   },
   {
     id: "2",
@@ -16,6 +17,7 @@ export const messages: Message[] = [
     text: "Oi Maria 👋",
     createdAt: "18:21",
     isMine: true,
+    status: "read",
   },
   {
     id: "3",
@@ -24,6 +26,7 @@ export const messages: Message[] = [
     text: "Tudo bem?",
     createdAt: "18:22",
     isMine: false,
+    status: "read",
   },
   {
     id: "4",
@@ -32,6 +35,7 @@ export const messages: Message[] = [
     text: "Tudo ótimo!",
     createdAt: "18:23",
     isMine: true,
+    status: "read",
   },
   {
     id: "5",
@@ -40,6 +44,7 @@ export const messages: Message[] = [
     text: "Vamos jogar hoje?",
     createdAt: "18:24",
     isMine: false,
+    status: "read",
   },
   {
     id: "6",
@@ -47,6 +52,58 @@ export const messages: Message[] = [
     senderName: "Jhonny",
     text: "Claro 😄",
     createdAt: "18:25",
+    isMine: true,
+    status: "read",
+  },
+];
+
+export const groupMessages: Message[] = [
+  {
+    id: "1",
+    senderId: "3",
+    senderName: "Carlos",
+    text: "Bom dia, pessoal!",
+    createdAt: "08:00",
+    isMine: false,
+  },
+  {
+    id: "2",
+    senderId: "4",
+    senderName: "Ana",
+    text: "Bom dia! ☀️",
+    createdAt: "08:01",
+    isMine: false,
+  },
+  {
+    id: "3",
+    senderId: "me",
+    senderName: "Jhonny",
+    text: "Bom dia!",
+    createdAt: "08:02",
+    isMine: true,
+  },
+  {
+    id: "4",
+    senderId: "3",
+    senderName: "Carlos",
+    text: "Hoje teremos reunião às 14h.",
+    createdAt: "08:05",
+    isMine: false,
+  },
+  {
+    id: "5",
+    senderId: "5",
+    senderName: "Fernanda",
+    text: "Estarei presente.",
+    createdAt: "08:07",
+    isMine: false,
+  },
+  {
+    id: "6",
+    senderId: "me",
+    senderName: "Jhonny",
+    text: "Perfeito 👍",
+    createdAt: "08:10",
     isMine: true,
   },
 ];
