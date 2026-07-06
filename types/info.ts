@@ -1,7 +1,7 @@
 export interface Info {
   id: string;
   name: string;
-  type: "private" | "group";
+  type: "user" | "group";
   lastMessage?: string;
   lastMessageTime?: string;
   unreadCount?: number;
