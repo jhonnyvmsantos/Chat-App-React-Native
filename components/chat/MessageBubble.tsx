@@ -2,38 +2,26 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { Message } from "@/types/message";
 
-interface Props {
-    message: Message;
-    currentUserId: string;
-    isGroup: boolean;
-}
-
-export default function MessageBubble({
-    message,
-    currentUserId,
-    isGroup,
-}: Props) {
-    const isMine = message.senderId === currentUserId;
-
+export default function MessageBubble(msg: Message) {
     return (
         <View
             style={[
                 styles.container,
-                isMine ? styles.mine : styles.other,
+                msg.isMine ? styles.mine : styles.other,
             ]}
         >
-            {!isMine && isGroup && (
+            {!msg.isMine && msg.isGroup && (
                 <Text style={styles.sender}>
-                    {message.senderName}
+                    {msg.senderName}
                 </Text>
             )}
 
             <Text style={styles.message}>
-                {message.text}
+                {msg.text}
             </Text>
 
             <Text style={styles.time}>
-                {message.createdAt}
+                {msg.createdAt}
             </Text>
         </View>
     );

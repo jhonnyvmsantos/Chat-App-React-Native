@@ -1,38 +1,30 @@
 import { useLocalSearchParams } from "expo-router";
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import ChatHeader from "@/components/chat/ChatHeader";
-import MessageBubble from "@/components/chat/MessageBubble";
-import MessageInput from "@/components/chat/MessageInput";
 
-import { groupChats } from "@/mocks/groupChats";
-import { privateChats } from "@/mocks/privateChats";
-
-import {
-  groupMessages,
-  privateMessages,
-} from "@/mocks/messages";
+import { chats } from "@/mocks/chats";
+import { groups, users } from "@/mocks/messages";
 
 export default function ChatScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const info =
-    privateChats.find((chat) => chat.id === id) ??
-    groupChats.find((chat) => chat.id === id);
+    chats.users.find((chat) => chat.id === id) ??
+    chats.groups.find((chat) => chat.id === id);
 
   if (!info) {
     return null;
   }
 
   const messages =
-    info.type === "private"
-      ? privateMessages
-      : groupMessages;
+    info.type === "user"
+      ? users
+      : groups;
 
   return (
     <SafeAreaView style={styles.container}>
-      <ChatHeader info={info} />
+      {/* <ChatHeader info={info} />
 
       <FlatList
         style={styles.list}
@@ -42,13 +34,11 @@ export default function ChatScreen() {
         renderItem={({ item }) => (
           <MessageBubble
             message={item}
-            currentUserId="me"
-            isGroup={info.type === "group"}
           />
         )}
       />
 
-      <MessageInput />
+      <MessageInput /> */}
     </SafeAreaView>
   );
 }

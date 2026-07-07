@@ -11,7 +11,7 @@ export default function TabListPrivateChatScreen() {
       <Text style={styles.title}>Private Chats</Text>
 
       <FlatList
-        data={chats}
+        data={chats.users}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <ChatItem info={item} />

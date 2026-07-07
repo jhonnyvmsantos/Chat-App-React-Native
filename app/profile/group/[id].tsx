@@ -1,12 +1,11 @@
 import { useLocalSearchParams } from "expo-router";
 
-import { groupChats } from "@/mocks/groupChats";
-import ProfileScreen from "@/screens/ProfileScreen";
+import { groups } from "@/mocks/messages";
 
 export default function GroupProfilePage() {
   const { id } = useLocalSearchParams();
 
-  const group = groupChats.find(
+  const group = groups.find(
     (g) => g.id === id
   );
 
@@ -15,9 +14,10 @@ export default function GroupProfilePage() {
   }
 
   return (
-    <ProfileScreen
-      title={group.name}
-      subtitle={group.description || ""}
-    />
+    // <ProfileScreen
+    //   title={group.name}
+    //   subtitle={group.description || ""}
+    // />
+    <></>
   );
 }
