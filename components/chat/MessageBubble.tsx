@@ -2,7 +2,11 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { Message } from "@/types/message";
 
-export default function MessageBubble(msg: Message) {
+type Props = {
+    msg: Message;
+};
+
+export default function MessageBubble({ msg }: Props) {
     return (
         <View
             style={[

@@ -8,7 +8,7 @@ export type Chat = {
   messages: Message[];
 };
 
-export const users: Chat[] = [
+export const messages: Chat[] = [
   {
     id: "1",
     type: "user",
@@ -193,11 +193,8 @@ export const users: Chat[] = [
       },
     ],
   },
-];
-
-export const groups: Chat[] = [
   {
-    id: "1",
+    id: "5",
     type: "group",
     name: "Desenvolvimento",
     messages: [
@@ -258,7 +255,7 @@ export const groups: Chat[] = [
     ],
   },
   {
-    id: "1",
+    id: "6",
     type: "group",
     name: "Família",
     messages: [
@@ -310,7 +307,7 @@ export const groups: Chat[] = [
     ],
   },
   {
-    id: "1",
+    id: "7",
     type: "group",
     name: "Amigos",
     messages: [
