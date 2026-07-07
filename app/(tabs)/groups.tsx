@@ -10,7 +10,7 @@ export default function TabListGroupsChatScreen() {
       <Text style={styles.title}>Group Chats</Text>
 
       <FlatList
-        data={chats.groups}
+        data={chats.filter((e) => e.type === "group")}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <ChatItem info={item} />

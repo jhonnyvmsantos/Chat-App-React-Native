@@ -9,7 +9,7 @@ interface Props {
 
 export default function ChatHeader({ info }: Props) {
     function openProfile() {
-        if (info.type === "private") {
+        if (info.type === "user") {
             router.push({
                 pathname: "/profile/user/[id]",
                 params: {
