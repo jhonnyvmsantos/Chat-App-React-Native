@@ -15,7 +15,7 @@ async function createProfile(
   displayName: string,
   email: string,
 ): Promise<void> {
-  await setDoc(doc(db, "users", uid), {
+  await setDoc(doc(db, "profile", uid), {
     displayName,
     email,
     photoURL: "",
@@ -26,40 +26,40 @@ async function createProfile(
 }
 
 async function getProfile(uid: string): Promise<User | null> {
-  const snapshot = await getDoc(doc(db, "users", uid));
+  const res = await getDoc(doc(db, "profile", uid));
 
-  if (!snapshot.exists()) {
+  if (!res.exists()) {
     return null;
   }
 
   return {
-    id: snapshot.id,
-    ...(snapshot.data() as Omit<User, "id">),
+    id: res.id,
+    ...(res.data() as Omit<User, "id">),
   };
 }
 
 async function updateProfile(uid: string, data: Partial<User>): Promise<void> {
-  await updateDoc(doc(db, "users", uid), data);
+  await updateDoc(doc(db, "profile", uid), data);
 }
 
 async function deleteProfile(uid: string): Promise<void> {
-  await deleteDoc(doc(db, "users", uid));
+  await deleteDoc(doc(db, "profile", uid));
 }
 
 async function setOnline(uid: string, online: boolean): Promise<void> {
-  await updateDoc(doc(db, "users", uid), {
+  await updateDoc(doc(db, "profile", uid), {
     online,
   });
 }
 
 async function updateLastSeen(uid: string): Promise<void> {
-  await updateDoc(doc(db, "users", uid), {
+  await updateDoc(doc(db, "profile", uid), {
     lastSeen: serverTimestamp(),
   });
 }
 
 async function updatePhotoURL(uid: string, photoURL: string): Promise<void> {
-  await updateDoc(doc(db, "users", uid), {
+  await updateDoc(doc(db, "profile", uid), {
     photoURL,
   });
 }

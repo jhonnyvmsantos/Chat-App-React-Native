@@ -12,17 +12,13 @@ import {
 import { register } from "@/services/authService";
 
 export default function RegisterScreen() {
-    const [displayName, setDisplayName] =
-        useState("");
+    const [displayName, setDisplayName] = useState("");
 
-    const [email, setEmail] =
-        useState("");
+    const [email, setEmail] = useState("");
 
-    const [password, setPassword] =
-        useState("");
+    const [password, setPassword] = useState("");
 
-    const [confirmPassword, setConfirmPassword] =
-        useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
     async function handleRegister() {
         if (password !== confirmPassword) {
@@ -41,12 +37,7 @@ export default function RegisterScreen() {
                 password,
             );
         } catch (error) {
-            Alert.alert(
-                "Erro",
-                error instanceof Error
-                    ? error.message
-                    : "Erro ao cadastrar usuário.",
-            );
+            Alert.alert("Erro", error instanceof Error ? error.message : "Erro ao cadastrar usuário.");
         }
     }
 

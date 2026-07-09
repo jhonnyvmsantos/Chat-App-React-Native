@@ -1,3 +1,6 @@
+import { ErrorCode } from "@/enums/ErrorCodes";
+import { AppError } from "@/errors/AppError";
+import { auth } from "@/firebase/config";
 import {
   createUserWithEmailAndPassword,
   deleteUser,
@@ -5,10 +8,6 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-
-import { ErrorCode } from "@/enums/ErrorCodes";
-import { AppError } from "@/errors/AppError";
-import { auth } from "@/firebase/config";
 import { createProfile } from "./profileService";
 
 async function register(
@@ -21,9 +20,7 @@ async function register(
   try {
     credential = await createUserWithEmailAndPassword(auth, email, password);
 
-    await updateProfile(credential.user, {
-      displayName,
-    });
+    await updateProfile(credential.user, { displayName });
 
     await createProfile(credential.user.uid, displayName, email);
   } catch (error) {

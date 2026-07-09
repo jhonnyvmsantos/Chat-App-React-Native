@@ -17,12 +17,9 @@ export default function ProtectedRoute({
     const segments = useSegments();
 
     useEffect(() => {
-        if (loading) {
-            return;
-        }
+        if (loading) return;
 
-        const inAuthGroup =
-            segments[0] === "(auth)";
+        const inAuthGroup = segments[0] === "(auth)";
 
         if (!authUser && !inAuthGroup) {
             router.replace("/(auth)/login");
@@ -31,12 +28,7 @@ export default function ProtectedRoute({
         if (authUser && inAuthGroup) {
             router.replace("/(tabs)");
         }
-    }, [
-        authUser,
-        loading,
-        router,
-        segments,
-    ]);
+    }, [authUser, loading, router, segments,]);
 
     if (loading) {
         return null;
