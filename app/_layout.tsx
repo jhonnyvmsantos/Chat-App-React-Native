@@ -1,9 +1,7 @@
 import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
-import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/components/useColorScheme';
-import { verifyAndCreateCollections } from '@/Services/collectionServices';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
@@ -12,34 +10,11 @@ export const unstable_settings = {
   initialRouteName: '(tabs)'
 };
 
-export type CollectionName =
-  | "users"
-  | "chats_private"
-  | "chats_group"
-  | "settings";
-
 // SplashScreen.preventAutoHideAsync();
 // SplashScreen.hideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-
-  useEffect(() => {
-    async function initializeCollections() {
-      const collections: CollectionName[] = [
-        "users",
-        "chats_private",
-        "chats_group",
-        "settings",
-      ];
-
-      for (const collection of collections) {
-        await verifyAndCreateCollections(collection);
-      }
-    }
-
-    initializeCollections();
-  }, []);
 
   return (
     <SafeAreaProvider>
