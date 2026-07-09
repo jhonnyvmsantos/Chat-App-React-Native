@@ -1,7 +1,11 @@
-export interface User {
+import { Timestamp } from "firebase/firestore";
+
+export type User = {
   id: string;
-  name: string;
-  avatar?: string;
-  isOnline: boolean;
-  lastSeen?: string;
-}
+  displayName: string;
+  email: string;
+  photoURL: string;
+  createdAt: Timestamp;
+  online: boolean;
+  lastSeen: Timestamp | null;
+};

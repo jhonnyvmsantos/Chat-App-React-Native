@@ -1,52 +1,68 @@
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
-import 'react-native-reanimated';
+import ProtectedRoute from "@/components/ProtectedRoute";
+import { useColorScheme } from "@/components/useColorScheme";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { DarkTheme, DefaultTheme, Stack, ThemeProvider, useRouter, useSegments } from "expo-router";
+import { useEffect } from "react";
+import "react-native-reanimated";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
-import { useColorScheme } from '@/components/useColorScheme';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+export { ErrorBoundary } from "expo-router";
 
+function RootNavigator() {
+  const { authUser, profile, loading } = useAuth();
 
-export { ErrorBoundary } from 'expo-router';
-export const unstable_settings = {
-  initialRouteName: '(tabs)'
-};
+  const segments = useSegments();
 
-// SplashScreen.preventAutoHideAsync();
-// SplashScreen.hideAsync();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loading) return;
+
+    const inAuthGroup =
+      segments[0] === "(auth)";
+
+    if (!authUser && !inAuthGroup) {
+      router.replace("/(auth)/login");
+    }
+
+    if (authUser && inAuthGroup) {
+      router.replace("/(tabs)");
+    }
+  }, [authUser, loading, segments]);
+
+  if (loading) {
+    return null;
+  }
+
+  return (
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="(auth)" />
+      <Stack.Screen name="(tabs)" />
+    </Stack>
+  );
+}
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack
-          screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="(tabs)" />
-          {/* <Stack.Screen name="modal" options={{ presentation: 'modal' }} /> */}
-        </Stack>
+      <ThemeProvider
+        value={
+          colorScheme === "dark"
+            ? DarkTheme
+            : DefaultTheme
+        }
+      >
+        <AuthProvider>
+          <ProtectedRoute>
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="(tabs)" />
+            </Stack>
+          </ProtectedRoute>
+        </AuthProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
 }
-
-
-
-// export default function RootLayout() {
-//   const [loaded, error] = useFonts({});
-
-//   useEffect(() => {
-//     if (error) throw error;
-//   }, [error]);
-
-//   useEffect(() => {
-//     if (loaded) {
-//       SplashScreen.hideAsync();
-//     }
-//   }, [loaded]);
-
-//   if (!loaded) {
-//     return null;
-//   }
-
-//   return <RootLayoutNav />;
-// }

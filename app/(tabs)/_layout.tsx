@@ -9,7 +9,7 @@ export default function TabLayout() {
 
   return (
     <Tabs
-    // initialRouteName='index'
+      // initialRouteName='index'
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
         headerShown: false,

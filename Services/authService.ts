@@ -1,23 +1,72 @@
-import { auth } from "../firebase/config";
-
 import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
+  createUserWithEmailAndPassword,
+  deleteUser,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 
-export async function register(email: string, password: string) {
-  return await createUserWithEmailAndPassword(auth, email, password);
+import { ErrorCode } from "@/enums/ErrorCodes";
+import { AppError } from "@/errors/AppError";
+import { auth } from "@/firebase/config";
+import { createProfile } from "./profileService";
+
+async function register(
+  displayName: string,
+  email: string,
+  password: string,
+): Promise<void> {
+  let credential;
+
+  try {
+    credential = await createUserWithEmailAndPassword(auth, email, password);
+
+    await updateProfile(credential.user, {
+      displayName,
+    });
+
+    await createProfile(credential.user.uid, displayName, email);
+  } catch (error) {
+    if (credential?.user) {
+      try {
+        await deleteUser(credential.user);
+      } catch {
+        // Se não conseguir excluir, apenas ignora.
+      }
+    }
+
+    throw new AppError(
+      ErrorCode.AUTH_REGISTER,
+      error instanceof Error ? error.message : "Erro ao cadastrar usuário.",
+    );
+  }
 }
 
-export async function login(email: string, password: string) {
-  return await signInWithEmailAndPassword(auth, email, password);
+async function login(email: string, password: string): Promise<void> {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    throw new AppError(
+      ErrorCode.AUTH_LOGIN,
+      error instanceof Error ? error.message : "Erro ao realizar login.",
+    );
+  }
 }
 
-export async function logout() {
-  await signOut(auth);
+async function logout(): Promise<void> {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    throw new AppError(
+      ErrorCode.AUTH_LOGOUT,
+      error instanceof Error ? error.message : "Erro ao sair da conta.",
+    );
+  }
 }
 
-export function getCurrentUser() {
+function getCurrentUser() {
   return auth.currentUser;
 }
+
+export { getCurrentUser, login, logout, register };
+
