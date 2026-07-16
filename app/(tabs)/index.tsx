@@ -1,7 +1,7 @@
-import ChatItem from "@/components/chat/ChatItem";
-
+import ListingChats from "@/components/listingChats";
+import SearchBar from "@/components/searchBar";
 import { chats } from "@/mocks/chats";
-import { FlatList, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabListPrivateChatScreen() {
@@ -10,14 +10,9 @@ export default function TabListPrivateChatScreen() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Private Chats</Text>
 
-      <FlatList
-        data={chats.filter((e) => e.type === "user")}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ChatItem info={item} />
-        )}
-        contentContainerStyle={styles.listContent}
-      />
+      <SearchBar />
+
+      <ListingChats chats={chats} type="user" />
     </SafeAreaView>
   );
 }
@@ -32,9 +27,5 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     textAlign: "center",
     marginVertical: 16,
-  },
-
-  listContent: {
-    paddingBottom: 20,
-  },
+  }
 });

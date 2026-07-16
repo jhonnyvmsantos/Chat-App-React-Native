@@ -1,3 +1,4 @@
+import QuickAuthButton from "@/components/QuickButton";
 import { login } from "@/Services/authService";
 import { Link } from "expo-router";
 import { useState } from "react";
@@ -50,6 +51,8 @@ export default function LoginScreen() {
             >
                 Criar uma conta
             </Link>
+
+            <QuickAuthButton mode="login"/>
         </View>
     );
 }

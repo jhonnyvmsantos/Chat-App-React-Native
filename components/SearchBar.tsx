@@ -1,36 +1,58 @@
-import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, TextInput, View } from "react-native";
+// components/SearchBar.tsx
+
+import { StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function SearchBar() {
-    return (
-        <View style={styles.container}>
-            <Ionicons name="search" size={20} color="#888" />
+  return (
+    <View style={styles.container}>
+      <Text style={styles.icon}>🔍</Text>
 
-            <TextInput
-                placeholder="Pesquisar..."
-                placeholderTextColor="#888"
-                editable={false}
-                style={styles.input}
-            />
-        </View>
-    );
+      <TextInput
+        style={styles.input}
+        placeholder="Pesquisar"
+        placeholderTextColor="#9CA3AF"
+        editable={false}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "row",
-        alignItems: "center",
-        backgroundColor: "#F2F2F2",
-        borderRadius: 12,
-        paddingHorizontal: 12,
-        height: 48,
-        marginVertical: 10,
-    },
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
 
-    input: {
-        flex: 1,
-        marginLeft: 8,
-        fontSize: 16,
-        color: "#000",
+    height: 50,
+    width: "100%",
+
+    backgroundColor: "#FFFFFF",
+
+    borderWidth: 1,
+    borderColor: "#D1D5DB",
+
+    borderRadius: 14,
+
+    paddingHorizontal: 14,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
     },
+    shadowOpacity: 0.08,
+    shadowRadius: 6,
+
+    elevation: 3,
+  },
+
+  icon: {
+    fontSize: 18,
+    marginRight: 10,
+  },
+
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: "#111827",
+  },
 });

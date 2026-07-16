@@ -1,7 +1,7 @@
-import ChatItem from "@/components/chat/ChatItem";
+import ListingChats from "@/components/listingChats";
 import { chats } from "@/mocks/chats";
 
-import { FlatList, StyleSheet, Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TabListGroupsChatScreen() {
@@ -9,14 +9,7 @@ export default function TabListGroupsChatScreen() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Group Chats</Text>
 
-      <FlatList
-        data={chats.filter((e) => e.type === "group")}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ChatItem info={item} />
-        )}
-        contentContainerStyle={styles.listContent}
-      />
+      <ListingChats chats={chats} type="group" />
     </SafeAreaView>
   );
 }

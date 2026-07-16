@@ -10,6 +10,7 @@ import {
 } from "react-native";
 
 import { register } from "@/Services/authService";
+import QuickAuthButton from "@/components/QuickButton";
 
 export default function RegisterScreen() {
     const [displayName, setDisplayName] = useState("");
@@ -90,6 +91,8 @@ export default function RegisterScreen() {
             >
                 Já possui uma conta?
             </Link>
+
+            <QuickAuthButton mode="register"/>
         </View>
     );
 }
