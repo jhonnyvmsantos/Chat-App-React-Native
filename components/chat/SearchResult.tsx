@@ -18,9 +18,9 @@ export default function UserSearchResult({ name, email, description, }: Props) {
     const [expanded, setExpanded] = useState(false);
 
     return (
-        <>
+        <View style={styles.card}>
             <Pressable
-                style={styles.card}
+                style={styles.header}
                 onPress={() => setExpanded(!expanded)}
             >
                 <View style={styles.avatar}>
@@ -43,20 +43,19 @@ export default function UserSearchResult({ name, email, description, }: Props) {
             </Pressable>
 
             {expanded && <UserActions />}
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     card: {
-        flexDirection: "row",
         backgroundColor: "#FFF",
         marginTop: 18,
         padding: 16,
         borderRadius: 18,
         borderWidth: 1,
         borderColor: "#E4E4E7",
-        alignItems: "center",
+        // alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -66,7 +65,10 @@ const styles = StyleSheet.create({
         shadowRadius: 8,
         elevation: 3,
     },
-
+    header: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
     avatar: {
         width: 62,
         height: 62,
@@ -75,29 +77,24 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-
     avatarText: {
         color: "#FFF",
         fontWeight: "bold",
         fontSize: 24,
     },
-
     info: {
         flex: 1,
         marginLeft: 16,
     },
-
     name: {
         fontSize: 18,
         fontWeight: "700",
         color: "#111827",
     },
-
     email: {
         color: "#6B7280",
         marginTop: 2,
     },
-
     description: {
         color: "#9CA3AF",
         marginTop: 4,

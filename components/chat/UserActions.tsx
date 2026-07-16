@@ -3,77 +3,53 @@ import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 export default function UserActions() {
     return (
         <View style={styles.container}>
-            <ActionButton
-                icon="💬"
-                title="Entrar no chat"
-                color="#2563EB"
-                onPress={() => Alert.alert("Chat")}
-            />
+            <Action icon="💬" label="Chat" onPress={() => Alert.alert("Chat")} />
 
-            <ActionButton
-                icon="👋"
-                title='Enviar "Hello!"'
-                color="#16A34A"
-                onPress={() => Alert.alert("Hello!")}
-            />
+            <Action icon="👋" label="Hello!" onPress={() => Alert.alert("Hello")} />
 
-            <ActionButton
-                icon="🚫"
-                title="Bloquear"
-                color="#F59E0B"
-            />
+            <Action icon="🚫" label="Bloquear" />
 
-            <ActionButton
-                icon="🚩"
-                title="Denunciar"
-                color="#DC2626"
-            />
+            <Action icon="🚩" label="Denunciar" />
         </View>
     );
 }
 
-type ButtonProps = {
+type Props = {
     icon: string;
-    title: string;
-    color: string;
+    label: string;
     onPress?: () => void;
 };
 
-function ActionButton({ icon, title, color, onPress, }: ButtonProps) {
+function Action({ icon, label, onPress }: Props) {
     return (
-        <Pressable
-            style={[styles.button, { backgroundColor: color }]}
-            onPress={onPress}
-        >
+        <Pressable style={styles.action} onPress={onPress}>
             <Text style={styles.icon}>{icon}</Text>
-
-            <Text style={styles.text}>{title}</Text>
+            <Text style={styles.label}>{label}</Text>
         </Pressable>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 12,
-        gap: 10,
-    },
-
-    button: {
-        height: 50,
-        borderRadius: 14,
+        marginTop: 16,
+        borderTopWidth: 1,
+        borderTopColor: "#ECECEC",
+        paddingTop: 12,
         flexDirection: "row",
+        justifyContent: "space-around",
+    },
+    action: {
         alignItems: "center",
-        paddingHorizontal: 16,
+        paddingVertical: 6,
+        paddingHorizontal: 10,
+        borderRadius: 10,
     },
-
     icon: {
-        fontSize: 18,
+        fontSize: 20,
     },
-
-    text: {
-        marginLeft: 12,
-        color: "#FFF",
-        fontWeight: "600",
-        fontSize: 16,
+    label: {
+        marginTop: 4,
+        fontSize: 11,
+        color: "#666",
     },
 });
