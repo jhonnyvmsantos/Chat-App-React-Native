@@ -8,7 +8,7 @@ interface Props {
     info: Info[];
 }
 
-export default function listingChats({
+export default function ListingChats({
     info,
 }: Props) {
     return (

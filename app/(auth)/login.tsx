@@ -1,4 +1,4 @@
-import { login } from "@/services/authService";
+import { login } from "@/Services/authService";
 import { Link } from "expo-router";
 import { useState } from "react";
 import { Alert, Button, StyleSheet, Text, TextInput, View } from "react-native";

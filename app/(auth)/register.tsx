@@ -9,7 +9,7 @@ import {
     View,
 } from "react-native";
 
-import { register } from "@/services/authService";
+import { register } from "@/Services/authService";
 
 export default function RegisterScreen() {
     const [displayName, setDisplayName] = useState("");
