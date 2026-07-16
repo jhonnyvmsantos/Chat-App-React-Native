@@ -1,5 +1,3 @@
-// components/QuickAuthButton.tsx
-
 import { Alert, Pressable, StyleSheet, Text } from "react-native";
 
 import { login, register } from "@/Services/authService";
@@ -15,10 +13,14 @@ const name = "Test";
 export default function QuickAuthButton({ mode }: Props) {
     const handlePress = async () => {
         try {
-            if (mode === "login") {
-                await login(email, password);
+            if (mode === "register") {
+                try {
+                    await register(name, email, password);
+                } catch {
+                    await login(email, password);
+                }
             } else {
-                await register(name, email, password);
+                await login(email, password);
             }
         } catch (error: any) {
             Alert.alert("Erro", error.message);
@@ -43,13 +45,10 @@ const styles = StyleSheet.create({
         height: 50,
         borderRadius: 14,
         backgroundColor: "#4285F4",
-
         justifyContent: "center",
         alignItems: "center",
-
         flexDirection: "row",
         gap: 10,
-
         marginTop: 12,
     },
 
