@@ -38,7 +38,6 @@ function AuthProvider({ children }: AuthProviderProps) {
 
         const profile = await getProfile(user.uid);
 
-        console.log(profile)
         setProfile(profile);
     }
 

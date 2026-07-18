@@ -1,10 +1,15 @@
 import {
+  collection,
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
+  limit,
+  query,
   serverTimestamp,
   setDoc,
   updateDoc,
+  where,
 } from "firebase/firestore";
 
 import { db } from "@/firebase/config";
@@ -64,5 +69,24 @@ async function updatePhotoURL(uid: string, photoURL: string): Promise<void> {
   });
 }
 
-export { createProfile, getProfile, updateProfile };
+async function getProfileByEmail(email: string) {
+  const q = query(
+    collection(db, "profile"),
+    where("email", "==", email),
+    limit(1),
+  );
+
+  const res = await getDocs(q);
+
+  if (res.empty) {
+    return null;
+  }
+
+  return {
+    id: res.docs[0].id,
+    ...(res.docs[0].data() as Omit<User, "id">),
+  };
+}
+
+export { createProfile, getProfile, getProfileByEmail, updateProfile };
 

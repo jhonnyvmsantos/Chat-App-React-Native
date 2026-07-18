@@ -1,19 +1,18 @@
-import { Info } from "@/types/info";
+import { User } from "@/types/user";
 import { FlatList, StyleSheet } from "react-native";
-import ChatItem from "./chat/ChatItem";
+import UserSearchResult from "./chat/SearchResult";
 
 interface Props {
-    chats: Info[];
-    type: "user" | "group"
+    profiles: User[];
 }
 
-export default function ListingChats({ chats, type }: Props) {
+export default function ListingProfiles({ profiles }: Props) {
     return (
         <FlatList
-            data={chats.filter((e) => e.type === type)}
+            data={profiles}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-                <ChatItem info={item} />
+                <UserSearchResult name={item.displayName} email={item.email} description="" />
             )}
             contentContainerStyle={styles.listContent}
         />
