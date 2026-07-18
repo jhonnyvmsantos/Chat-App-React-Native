@@ -1,16 +1,22 @@
 import UserSearchResult from "@/components/chat/SearchResult";
-import SearchBar from "@/components/searchBar";
+import { useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CreateChatScreen() {
+
+  const [email, setEmail] = useState("")
+
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.content}
-        keyboardShouldPersistTaps="handled"
-      >
-        <SearchBar />
+      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled"      >
+        {/* <SearchBar placeholder="Pesquisar por email..." /> */}
+
+        {/* <Pressable onPress={handlePress}>
+          <Text >
+            aaaaaaaaaaaaaaa
+          </Text>
+        </Pressable> */}
 
         <UserSearchResult
           name="João Silva"

@@ -1,6 +1,5 @@
 import FloatingAddButton from "@/components/FloatingButton";
-import ListingChats from "@/components/listingChats";
-import SearchBar from "@/components/searchBar";
+import ListingChats from "@/components/ListingChats";
 import { chats } from "@/mocks/chats";
 import { router } from "expo-router";
 import { StyleSheet, Text } from "react-native";
@@ -12,7 +11,7 @@ export default function TabListPrivateChatScreen() {
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Private Chats</Text>
 
-      <SearchBar />
+      {/* <SearchBar /> */}
 
       <ListingChats chats={chats} type="user" />
 

@@ -8,6 +8,8 @@ type AuthContextData = {
     authUser: FirebaseUser | null;
     profile: User | null;
     loading: boolean;
+
+    refreshProfile: () => Promise<void>;
 };
 
 type AuthProviderProps = {
@@ -23,29 +25,34 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     const [loading, setLoading] = useState(true);
 
+    async function refreshProfile() {
+        const user = auth.currentUser;
+
+        if (!user) {
+            setAuthUser(null);
+            setProfile(null);
+            return;
+        }
+
+        setAuthUser(user);
+
+        const profile = await getProfile(user.uid);
+
+        console.log(profile)
+        setProfile(profile);
+    }
+
     useEffect(() => {
-        const state = onAuthStateChanged(auth, async (user) => {
-
-            if (!user) {
-                setAuthUser(null);
-                setProfile(null);
-                setLoading(false);
-                return;
-            }
-
-            const profile = await getProfile(user.uid);
-
-            setAuthUser(user);
-            setProfile(profile);
-
+        const state = onAuthStateChanged(auth, async () => {
+            await refreshProfile();
             setLoading(false);
         },);
 
-        return state; //serve para excluir os "logs" (listeners) anteriores
+        return state;
     }, []);
 
     return (
-        <AuthContext.Provider value={{ authUser, profile, loading }} >
+        <AuthContext.Provider value={{ authUser, profile, loading, refreshProfile }} >
             {children}
         </AuthContext.Provider>
     );
@@ -54,6 +61,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 function useAuth() {
     return useContext(AuthContext);
 }
+
+
 
 export { AuthProvider, useAuth };
 
