@@ -1,19 +1,19 @@
-import { Info } from "@/types/chat";
+import { Chat } from "@/types/chat";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 
 interface Props {
-    info: Info;
+    chat: Chat;
 }
 
-export default function ChatHeader({ info }: Props) {
+export default function ChatHeader({ chat }: Props) {
     function openProfile() {
-        if (info.type === "user") {
+        if (chat.type === "user") {
             router.push({
                 pathname: "/profile/user/[id]",
                 params: {
-                    id: info.id,
+                    id: chat.id,
                 },
             });
 
@@ -23,7 +23,7 @@ export default function ChatHeader({ info }: Props) {
         router.push({
             pathname: "/profile/group/[id]",
             params: {
-                id: info.id,
+                id: chat.id,
             },
         });
     }
@@ -38,23 +38,23 @@ export default function ChatHeader({ info }: Props) {
             </Pressable>
 
             <Pressable
-                style={styles.info}
+                style={styles.chat}
                 onPress={openProfile}
             >
                 <View style={styles.avatar}>
                     <Text style={styles.avatarLetter}>
-                        {info.name[0]}
+                        {chat.name[0]}
                     </Text>
                 </View>
 
                 <View>
                     <Text style={styles.name}>
-                        {info.name}
+                        {chat.name}
                     </Text>
 
-                    {info.type === "group" && (
+                    {chat.type === "group" && (
                         <Text style={styles.subtitle}>
-                            {info.members} membros
+                            {chat.participants.length} membros
                         </Text>
                     )}
                 </View>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         fontWeight: "600",
     },
 
-    info: {
+    chat: {
         flexDirection: "row",
         alignItems: "center",
         flex: 1,

@@ -1,13 +1,13 @@
 import {
-    addDoc,
-    collection,
-    doc,
-    getDoc,
-    getDocs,
-    limit,
-    query,
-    serverTimestamp,
-    where,
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  serverTimestamp,
+  where,
 } from "firebase/firestore";
 
 import { db } from "@/firebase/config";
@@ -15,30 +15,30 @@ import { Chat } from "@/types/chat";
 
 const chatCollection = collection(db, "chat");
 
-function createPrivateKey(uid1: string, uid2: string): string {
-  return [uid1, uid2].sort().join("_");
+export function generatorPrivateKey(myUid: string, otherUid: string): string {
+  return [myUid, otherUid].sort().join("_");
 }
 
 export async function getChat(chatId: string): Promise<Chat | null> {
   const ref = doc(db, "chat", chatId);
 
-  const snapshot = await getDoc(ref);
+  const res = await getDoc(ref);
 
-  if (!snapshot.exists()) {
+  if (!res.exists()) {
     return null;
   }
 
   return {
-    id: snapshot.id,
-    ...(snapshot.data() as Omit<Chat, "id">),
+    id: res.id,
+    ...(res.data() as Omit<Chat, "id">),
   };
 }
 
 export async function getPrivateChat(
-  uid1: string,
-  uid2: string,
+  myUid: string,
+  otherUid: string,
 ): Promise<Chat | null> {
-  const privateKey = createPrivateKey(uid1, uid2);
+  const privateKey = generatorPrivateKey(myUid, otherUid);
 
   const q = query(
     chatCollection,
@@ -46,13 +46,13 @@ export async function getPrivateChat(
     limit(1),
   );
 
-  const snapshot = await getDocs(q);
+  const res = await getDocs(q);
 
-  if (snapshot.empty) {
+  if (res.empty) {
     return null;
   }
 
-  const chat = snapshot.docs[0];
+  const chat = res.docs[0];
 
   return {
     id: chat.id,
@@ -61,30 +61,22 @@ export async function getPrivateChat(
 }
 
 export async function createPrivateChat(
-  uid1: string,
-  uid2: string,
+  myUid: string,
+  otherUid: string,
   name: string,
   avatar?: string,
-  description?: string,
 ): Promise<Chat> {
-  const privateKey = createPrivateKey(uid1, uid2);
+  const privateKey = generatorPrivateKey(myUid, otherUid);
 
   const docRef = await addDoc(chatCollection, {
     privateKey,
-
     name,
     type: "user",
-
     avatar,
-    description,
-
-    participants: [uid1, uid2],
-
+    participants: [myUid, otherUid],
     lastMessage: "",
     lastMessageTime: "",
-
     unreadCount: 0,
-
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
@@ -99,17 +91,16 @@ export async function createPrivateChat(
 }
 
 export async function getOrCreatePrivateChat(
-  uid1: string,
-  uid2: string,
+  myUid: string,
+  otherUid: string,
   name: string,
   avatar?: string,
-  description?: string,
 ): Promise<Chat> {
-  const existing = await getPrivateChat(uid1, uid2);
+  const existing = await getPrivateChat(myUid, otherUid);
 
   if (existing) {
     return existing;
   }
 
-  return createPrivateChat(uid1, uid2, name, avatar, description);
+  return createPrivateChat(myUid, otherUid, name, avatar);
 }

@@ -31,13 +31,7 @@ export default function CreateChatScreen() {
       <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled"      >
         <SearchBar value={email} onChangeText={setEmail} placeholder="Pesquisar por email..." />
 
-        <UserSearchResult
-          name="João Silva"
-          email="joao@email.com"
-          description="Desenvolvedor React Native"
-        />
-
-        {user && (<UserSearchResult name={user.displayName} email={user.email} description="Testando o Test..." />)}
+        {user && (<UserSearchResult uid={user.id} name={user.displayName} email={user.email} bio="Testando o Test..." />)}
       </ScrollView>
     </SafeAreaView>
   );

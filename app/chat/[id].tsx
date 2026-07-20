@@ -2,7 +2,6 @@ import { useLocalSearchParams } from "expo-router";
 import { FlatList, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import ChatHeader from "@/components/chat/ChatHeader";
 import MessageBubble from "@/components/chat/MessageBubble";
 import MessageInput from "@/components/chat/MessageInput";
 
@@ -19,7 +18,7 @@ export default function ChatScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ChatHeader info={chat} />
+      {/* <ChatHeader chat={chat} /> */}
 
       <FlatList
         style={styles.list}

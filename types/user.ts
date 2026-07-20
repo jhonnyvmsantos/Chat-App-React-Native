@@ -4,6 +4,7 @@ export type User = {
   id: string;
   displayName: string;
   email: string;
+  bio: string;
   photoURL: string;
   createdAt: Timestamp;
   online: boolean;

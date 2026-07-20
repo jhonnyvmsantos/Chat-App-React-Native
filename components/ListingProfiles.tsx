@@ -12,7 +12,7 @@ export default function ListingProfiles({ profiles }: Props) {
             data={profiles}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-                <UserSearchResult name={item.displayName} email={item.email} description="" />
+                <UserSearchResult uid={item.id} name={item.displayName} email={item.email} bio="" />
             )}
             contentContainerStyle={styles.listContent}
         />

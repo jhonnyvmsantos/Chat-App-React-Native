@@ -39,6 +39,7 @@ async function createProfile(
     displayName,
     email,
     photoURL: "",
+    bio: "",
     createdAt: serverTimestamp(),
     online: false,
     lastSeen: null,
