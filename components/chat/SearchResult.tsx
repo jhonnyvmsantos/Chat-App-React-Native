@@ -42,7 +42,7 @@ export default function UserSearchResult({ name, email, description, }: Props) {
                 </View>
             </Pressable>
 
-            {expanded && <UserActions />}
+            {expanded && <UserActions id="" />}
         </View>
     );
 }

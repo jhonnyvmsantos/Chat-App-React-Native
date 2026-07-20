@@ -1,4 +1,4 @@
-import { Info } from "@/types/info";
+import { Info } from "@/types/chat";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 

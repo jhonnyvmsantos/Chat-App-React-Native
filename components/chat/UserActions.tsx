@@ -1,9 +1,21 @@
+import { router } from "expo-router";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function UserActions() {
+type UserActionsProps = {
+    id: string
+}
+
+export default function UserActions({ id }: UserActionsProps) {
     return (
         <View style={styles.container}>
-            <Action icon="💬" label="Chat" onPress={() => Alert.alert("Chat")} />
+            <Action icon="💬" label="Chat" onPress={() => {
+                router.push({
+                    pathname: "/chat/[id]",
+                    params: {
+                        id: id,
+                    },
+                })
+            }} />
 
             <Action icon="👋" label="Hello!" onPress={() => Alert.alert("Hello")} />
 

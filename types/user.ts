@@ -8,4 +8,5 @@ export type User = {
   createdAt: Timestamp;
   online: boolean;
   lastSeen: Timestamp | null;
+  emailSearch?: string[];
 };
