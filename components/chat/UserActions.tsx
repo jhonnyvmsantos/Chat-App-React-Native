@@ -1,18 +1,29 @@
+import { useAuth } from "@/contexts/AuthContext";
+import { createPrivateChat, generatorPrivateKey, getChat } from "@/Services/chatService";
+import { User } from "@/types/user";
 import { router } from "expo-router";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
 type UserActionsProps = {
-    id: string
+    user: User
 }
 
-export default function UserActions({ id }: UserActionsProps) {
+export default function UserActions({ user }: UserActionsProps) {
+    const { profile } = useAuth()
+
     return (
         <View style={styles.container}>
-            <Action icon="💬" label="Chat" onPress={() => {
+            <Action icon="💬" label="Chat" onPress={async () => {
+                let res = await getChat(generatorPrivateKey(profile?.id || "", user?.id || ""))
+
+                if (!res) {
+                    res = await createPrivateChat(user)
+                }
+
                 router.push({
                     pathname: "/chat/[id]",
                     params: {
-                        id: id,
+                        id: res?.id || "",
                     },
                 })
             }} />

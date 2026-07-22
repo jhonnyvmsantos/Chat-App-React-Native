@@ -14,7 +14,7 @@ export default function ChatItem({ chat }: Props) {
                 router.push({
                     pathname: "/chat/[id]",
                     params: {
-                        id: chat.id,
+                        id: chat.id || "",
                     },
                 })
             }

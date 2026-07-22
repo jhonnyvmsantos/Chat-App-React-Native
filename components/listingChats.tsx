@@ -11,7 +11,7 @@ export default function ListingChats({ chats, type }: Props) {
     return (
         <FlatList
             data={chats.filter((e) => e.type === type)}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id || ""}
             renderItem={({ item }) => (
                 <ChatItem chat={item} />
             )}

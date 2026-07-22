@@ -10,9 +10,9 @@ export default function ListingProfiles({ profiles }: Props) {
     return (
         <FlatList
             data={profiles}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id || ""}
             renderItem={({ item }) => (
-                <UserSearchResult uid={item.id} name={item.displayName} email={item.email} bio="" />
+                <UserSearchResult user={item}/>
             )}
             contentContainerStyle={styles.listContent}
         />

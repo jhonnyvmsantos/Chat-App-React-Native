@@ -28,10 +28,10 @@ export default function CreateChatScreen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled"      >
+      <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
         <SearchBar value={email} onChangeText={setEmail} placeholder="Pesquisar por email..." />
 
-        {user && (<UserSearchResult user={user || null}/>)}
+        {user && (<UserSearchResult user={user || null} />)}
       </ScrollView>
     </SafeAreaView>
   );

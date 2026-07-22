@@ -3,11 +3,7 @@ import {
   collection,
   doc,
   getDoc,
-  getDocs,
-  limit,
-  query,
-  serverTimestamp,
-  where,
+  serverTimestamp
 } from "firebase/firestore";
 
 import { db } from "@/firebase/config";
@@ -39,35 +35,9 @@ export async function getChat(chatId: string): Promise<Chat | null> {
   };
 }
 
-export async function getPrivateChat(
-  myUid: string,
-  otherUid: string,
-): Promise<Chat | null> {
-  const privateKey = generatorPrivateKey(myUid, otherUid);
-
-  const q = query(
-    chatCollection,
-    where("privateKey", "==", privateKey),
-    limit(1),
-  );
-
-  const res = await getDocs(q);
-
-  if (res.empty) {
-    return null;
-  }
-
-  const chat = res.docs[0];
-
-  return {
-    id: chat.id,
-    ...(chat.data() as Omit<Chat, "id">),
-  };
-}
-
-export async function createPrivateChat(user: User): Promise<Chat | undefined> {
+export async function createPrivateChat(user: User): Promise<Chat | null> {
   if (!user || !profile) {
-    return;
+    return null;
   }
 
   const privateKey = generatorPrivateKey(profile?.id || "", user.id || "");

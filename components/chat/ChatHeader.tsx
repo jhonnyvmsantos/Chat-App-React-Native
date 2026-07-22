@@ -13,7 +13,7 @@ export default function ChatHeader({ chat }: Props) {
             router.push({
                 pathname: "/profile/user/[id]",
                 params: {
-                    id: chat.id,
+                    id: chat.id || "",
                 },
             });
 
@@ -23,7 +23,7 @@ export default function ChatHeader({ chat }: Props) {
         router.push({
             pathname: "/profile/group/[id]",
             params: {
-                id: chat.id,
+                id: chat.id || "",
             },
         });
     }

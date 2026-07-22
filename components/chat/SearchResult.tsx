@@ -1,5 +1,3 @@
-import { generatorPrivateKey } from "@/Services/chatService";
-import { useAuth } from "@/contexts/AuthContext";
 import { User } from "@/types/user";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
@@ -10,7 +8,6 @@ interface UserSearchResultProps {
 }
 
 export default function UserSearchResult({ user }: UserSearchResultProps) {
-    const { profile } = useAuth()
     const [expanded, setExpanded] = useState(false);
 
     return (
@@ -38,7 +35,7 @@ export default function UserSearchResult({ user }: UserSearchResultProps) {
                 </View>
             </Pressable>
 
-            {expanded && <UserActions id={generatorPrivateKey(profile?.id || "", user?.id || "")} />}
+            {expanded && <UserActions user={user} />}
         </View>
     );
 }
