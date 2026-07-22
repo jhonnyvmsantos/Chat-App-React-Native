@@ -1,7 +1,7 @@
 import { FieldValue, Timestamp } from "firebase/firestore";
 import { User } from "./user";
 
-export interface Chat {
+export interface Info {
   id?: string;
   type: "user" | "group";
   participants: User[];

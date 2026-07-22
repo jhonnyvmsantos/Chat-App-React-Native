@@ -3,13 +3,11 @@ import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import MessageInput from "@/components/chat/MessageInput";
-import { Chat } from "@/types/chat";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 export default function ChatScreen() {
   const { id, type } = useLocalSearchParams<{ id: string, type: "user" | "group"}>();
-  const [chat, setChat] = useState<Chat | null>(null)
 
   useEffect(() => {
     if (type === "group") {

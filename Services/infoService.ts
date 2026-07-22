@@ -3,25 +3,21 @@ import {
   collection,
   doc,
   getDoc,
-  serverTimestamp
+  serverTimestamp,
 } from "firebase/firestore";
 
 import { db } from "@/firebase/config";
-import { Chat } from "@/types/chat";
-
-import { useAuth } from "@/contexts/AuthContext";
+import { Info } from "@/types/info";
 import { User } from "@/types/user";
 
-const { profile } = useAuth();
-
-const chatCollection = collection(db, "chat");
+const coll = collection(db, "info");
 
 export function generatorPrivateKey(myUid: string, otherUid: string): string {
   return [myUid, otherUid].sort().join("_");
 }
 
-export async function getChat(chatId: string): Promise<Chat | null> {
-  const ref = doc(db, "chat", chatId);
+export async function getInfo(uid: string): Promise<Info | null> {
+  const ref = doc(db, "info", uid);
 
   const res = await getDoc(ref);
 
@@ -31,18 +27,21 @@ export async function getChat(chatId: string): Promise<Chat | null> {
 
   return {
     id: res.id,
-    ...(res.data() as Omit<Chat, "id">),
+    ...(res.data() as Omit<Info, "id">),
   };
 }
 
-export async function createPrivateChat(user: User): Promise<Chat | null> {
+export async function createPrivateInfo(
+  user: User,
+  profile: User,
+): Promise<Info | null> {
   if (!user || !profile) {
     return null;
   }
 
   const privateKey = generatorPrivateKey(profile?.id || "", user.id || "");
 
-  const chat: Chat = {
+  const info: Info = {
     privateKey,
     type: "user",
     participants: [profile, user],
@@ -53,12 +52,12 @@ export async function createPrivateChat(user: User): Promise<Chat | null> {
     updatedAt: serverTimestamp(),
   };
 
-  const docRef = await addDoc(chatCollection, chat);
+  const docRef = await addDoc(coll, info);
 
-  const res = await getChat(docRef.id);
+  const res = await getInfo(docRef.id);
 
   if (!res) {
-    throw new Error("Erro ao criar chat.");
+    throw new Error("Erro ao criar o info.");
   }
 
   return res;

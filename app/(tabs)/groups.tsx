@@ -1,5 +1,3 @@
-import FloatingAddButton from "@/components/FloatingButton";
-import { router } from "expo-router";
 
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,7 +9,7 @@ export default function TabListGroupsChatScreen() {
       {/* <SearchBar /> */}
 
       {/* <ListingChats chats={chats} type="group" /> */}
-      <FloatingAddButton onPress={() => router.push("/chat/create")}/>
+      {/* <FloatingAddButton onPress={() => router.push("/chat/create")}/> */}
     </SafeAreaView>
   );
 }

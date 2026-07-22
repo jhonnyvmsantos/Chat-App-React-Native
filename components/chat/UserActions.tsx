@@ -1,5 +1,5 @@
 import { useAuth } from "@/contexts/AuthContext";
-import { createPrivateChat, generatorPrivateKey, getChat } from "@/Services/chatService";
+import { createPrivateInfo, generatorPrivateKey, getInfo } from "@/Services/infoService";
 import { User } from "@/types/user";
 import { router } from "expo-router";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
@@ -14,10 +14,10 @@ export default function UserActions({ user }: UserActionsProps) {
     return (
         <View style={styles.container}>
             <Action icon="💬" label="Chat" onPress={async () => {
-                let res = await getChat(generatorPrivateKey(profile?.id || "", user?.id || ""))
+                let res = await getInfo(generatorPrivateKey(profile?.id || "", user?.id || ""))
 
-                if (!res) {
-                    res = await createPrivateChat(user)
+                if (res === null && profile) {
+                    res = await createPrivateInfo(user, profile)
                 }
 
                 router.push({
