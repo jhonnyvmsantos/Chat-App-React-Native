@@ -1,17 +1,15 @@
 import { generatorPrivateKey } from "@/Services/chatService";
 import { useAuth } from "@/contexts/AuthContext";
+import { User } from "@/types/user";
 import { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import UserActions from "./UserActions";
 
-type Props = {
-    uid: string;
-    name: string;
-    email: string;
-    bio: string;
-};
+interface UserSearchResultProps {
+    user: User;
+}
 
-export default function UserSearchResult({ uid, name, email, bio, }: Props) {
+export default function UserSearchResult({ user }: UserSearchResultProps) {
     const { profile } = useAuth()
     const [expanded, setExpanded] = useState(false);
 
@@ -23,24 +21,24 @@ export default function UserSearchResult({ uid, name, email, bio, }: Props) {
             >
                 <View style={styles.avatar}>
                     <Text style={styles.avatarText}>
-                        {name.charAt(0).toUpperCase()}
+                        {user?.displayName[0].toUpperCase()}
                     </Text>
                 </View>
 
                 <View style={styles.info}>
-                    <Text style={styles.name}>{name}</Text>
+                    <Text style={styles.name}>{user?.displayName}</Text>
 
                     <Text style={styles.email}>
-                        {email}
+                        {user?.email}
                     </Text>
 
                     <Text style={styles.description}>
-                        {bio}
+                        {user?.bio}
                     </Text>
                 </View>
             </Pressable>
 
-            {expanded && <UserActions id={generatorPrivateKey(profile?.id || "", uid)} />}
+            {expanded && <UserActions id={generatorPrivateKey(profile?.id || "", user?.id || "")} />}
         </View>
     );
 }

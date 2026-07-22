@@ -1,13 +1,13 @@
-import { Timestamp } from "firebase/firestore";
+import { FieldValue, Timestamp } from "firebase/firestore";
 
 export type User = {
-  id: string;
-  name: string;
+  id?: string;
+  displayName: string;
   email: string;
   bio: string;
-  avatar: string;
-  createdAt?: Timestamp;
+  photoURL: string;
+  createdAt?: Timestamp | FieldValue;
   isOnline?: boolean;
-  lastSeen?: Timestamp | null;
+  lastSeen?: Timestamp | FieldValue | null;
   emailSearch?: string[];
 };

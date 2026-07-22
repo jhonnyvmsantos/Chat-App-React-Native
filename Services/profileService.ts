@@ -35,16 +35,18 @@ async function createProfile(
 ): Promise<void> {
   const prefixes = createPrefixes(email);
 
-  await setDoc(doc(db, "profile", uid), {
+  const user: User = {
     displayName,
     email,
     photoURL: "",
     bio: "",
     createdAt: serverTimestamp(),
-    online: false,
+    isOnline: false,
     lastSeen: null,
     emailSearch: prefixes,
-  });
+  };
+
+  await setDoc(doc(db, "profile", uid), user);
 }
 
 async function getProfile(uid: string): Promise<User | null> {

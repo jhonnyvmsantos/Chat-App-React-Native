@@ -27,9 +27,7 @@ async function register(
     if (credential?.user) {
       try {
         await deleteUser(credential.user);
-      } catch {
-        // Se não conseguir excluir, apenas ignora.
-      }
+      } catch {}
     }
 
     throw new AppError(

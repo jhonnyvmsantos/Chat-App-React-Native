@@ -13,6 +13,11 @@ import {
 import { db } from "@/firebase/config";
 import { Chat } from "@/types/chat";
 
+import { useAuth } from "@/contexts/AuthContext";
+import { User } from "@/types/user";
+
+const { profile } = useAuth();
+
 const chatCollection = collection(db, "chat");
 
 export function generatorPrivateKey(myUid: string, otherUid: string): string {
@@ -60,42 +65,31 @@ export async function getPrivateChat(
   };
 }
 
-export async function createPrivateChat(
-  myUid: string,
-  otherUid: string,
-): Promise<Chat> {
-  const privateKey = generatorPrivateKey(myUid, otherUid);
+export async function createPrivateChat(user: User): Promise<Chat | undefined> {
+  if (!user || !profile) {
+    return;
+  }
 
-  const docRef = await addDoc(chatCollection, {
+  const privateKey = generatorPrivateKey(profile?.id || "", user.id || "");
+
+  const chat: Chat = {
     privateKey,
     type: "user",
-    participants: [myUid, otherUid],
+    participants: [profile, user],
     lastMessage: "",
-    lastMessageTime: "",
+    lastMessageTime: null,
     unreadCount: 0,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
-  });
+  };
 
-  const chat = await getChat(docRef.id);
+  const docRef = await addDoc(chatCollection, chat);
 
-  if (!chat) {
+  const res = await getChat(docRef.id);
+
+  if (!res) {
     throw new Error("Erro ao criar chat.");
   }
 
-  return chat;
-}
-
-export async function getOrCreatePrivateChat(
-  myUid: string,
-  otherUid: string,
-  name: string,
-): Promise<Chat> {
-  const existing = await getPrivateChat(myUid, otherUid);
-
-  if (existing) {
-    return existing;
-  }
-
-  return createPrivateChat(myUid, otherUid);
+  return res;
 }

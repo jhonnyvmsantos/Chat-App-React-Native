@@ -1,17 +1,17 @@
-import { Timestamp } from "firebase/firestore";
+import { FieldValue, Timestamp } from "firebase/firestore";
 import { User } from "./user";
 
 export interface Chat {
-  id: string;
+  id?: string;
   type: "user" | "group";
   participants: User[];
   privateKey?: string;
   photoUrl?: string;
   title?: string;
   lastMessage?: string;
-  lastMessageTime?: Timestamp;
+  lastMessageTime?: Timestamp | null;
   unreadCount?: number;
   description?: string;
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: Timestamp | FieldValue;
+  updatedAt: Timestamp | FieldValue;
 }
