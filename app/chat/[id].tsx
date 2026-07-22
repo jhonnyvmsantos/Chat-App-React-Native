@@ -1,26 +1,24 @@
 import { useLocalSearchParams } from "expo-router";
-import { FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import MessageBubble from "@/components/chat/MessageBubble";
 import MessageInput from "@/components/chat/MessageInput";
 
-import { messages } from "@/mocks/messages";
 
 export default function ChatScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
-  const chat = messages.find((chat) => chat.id === id)
+  // const chat = 
 
-  if (!chat) {
-    return null;
-  }
+  // if (!chat) {
+  //   return null;
+  // }
 
   return (
     <SafeAreaView style={styles.container}>
       {/* <ChatHeader chat={chat} /> */}
 
-      <FlatList
+      {/* <FlatList
         style={styles.list}
         contentContainerStyle={styles.listContent}
         data={chat.messages || []}
@@ -30,7 +28,7 @@ export default function ChatScreen() {
             msg={item}
           />
         )}
-      />
+      /> */}
 
       <MessageInput />
     </SafeAreaView>

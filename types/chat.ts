@@ -1,16 +1,16 @@
 import { Timestamp } from "firebase/firestore";
+import { User } from "./user";
 
 export interface Chat {
   id: string;
-  privateKey?: string;
-  name: string;
   type: "user" | "group";
-  participants: string[];
+  participants: User[];
+  privateKey?: string;
+  photoUrl?: string;
+  title?: string;
   lastMessage?: string;
   lastMessageTime?: Timestamp;
   unreadCount?: number;
-  avatar?: string;
-  isOnline?: boolean;
   description?: string;
   createdAt: Timestamp;
   updatedAt: Timestamp;

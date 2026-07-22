@@ -1,6 +1,4 @@
 import FloatingAddButton from "@/components/FloatingButton";
-import ListingChats from "@/components/ListingChats";
-import { chats } from "@/mocks/chats";
 import { router } from "expo-router";
 import { StyleSheet, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,7 +11,7 @@ export default function TabListPrivateChatScreen() {
 
       {/* <SearchBar /> */}
 
-      <ListingChats chats={chats} type="user" />
+      {/* <ListingChats chats={chats} type="user" /> */}
 
       <FloatingAddButton onPress={() => router.push("/chat/create")} />
     </SafeAreaView>

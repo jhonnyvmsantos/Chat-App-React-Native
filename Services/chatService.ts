@@ -63,16 +63,12 @@ export async function getPrivateChat(
 export async function createPrivateChat(
   myUid: string,
   otherUid: string,
-  name: string,
-  avatar?: string,
 ): Promise<Chat> {
   const privateKey = generatorPrivateKey(myUid, otherUid);
 
   const docRef = await addDoc(chatCollection, {
     privateKey,
-    name,
     type: "user",
-    avatar,
     participants: [myUid, otherUid],
     lastMessage: "",
     lastMessageTime: "",
@@ -94,7 +90,6 @@ export async function getOrCreatePrivateChat(
   myUid: string,
   otherUid: string,
   name: string,
-  avatar?: string,
 ): Promise<Chat> {
   const existing = await getPrivateChat(myUid, otherUid);
 
@@ -102,5 +97,5 @@ export async function getOrCreatePrivateChat(
     return existing;
   }
 
-  return createPrivateChat(myUid, otherUid, name, avatar);
+  return createPrivateChat(myUid, otherUid);
 }

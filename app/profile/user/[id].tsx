@@ -1,17 +1,8 @@
 import { useLocalSearchParams } from "expo-router";
 
-import { users } from "@/mocks/users";
 
 export default function UserProfilePage() {
   const { id } = useLocalSearchParams();
-
-  const user = users.find(
-    (u) => u.id === id
-  );
-
-  if (!user) {
-    return null;
-  }
 
   return (
     // <ProfileScreen

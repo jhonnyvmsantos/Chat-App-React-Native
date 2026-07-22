@@ -19,15 +19,15 @@ export default function ChatItem({ chat }: Props) {
                 })
             }
         >
-            {chat.avatar ? (
+            {chat.photoUrl ? (
                 <Image
-                    source={{ uri: chat.avatar }}
+                    source={{ uri: chat.photoUrl }}
                     style={styles.avatar}
                 />
             ) : (
                 <View style={styles.avatarPlaceholder}>
                     <Text style={styles.avatarLetter}>
-                        {chat.name[0]}
+                        {chat.title ? chat.title[0] : ""}
                     </Text>
                 </View>
             )}
@@ -35,7 +35,7 @@ export default function ChatItem({ chat }: Props) {
             <View style={styles.content}>
                 <View style={styles.header}>
                     <Text style={styles.name}>
-                        {chat.name}
+                        {chat.title}
                     </Text>
 
                     <Text style={styles.time}>

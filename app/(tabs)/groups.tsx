@@ -1,6 +1,4 @@
 import FloatingAddButton from "@/components/FloatingButton";
-import ListingChats from "@/components/ListingChats";
-import { chats } from "@/mocks/chats";
 import { router } from "expo-router";
 
 import { StyleSheet, Text } from "react-native";
@@ -12,7 +10,7 @@ export default function TabListGroupsChatScreen() {
       <Text style={styles.title}>Group Chats</Text>
       {/* <SearchBar /> */}
 
-      <ListingChats chats={chats} type="group" />
+      {/* <ListingChats chats={chats} type="group" /> */}
       <FloatingAddButton onPress={() => router.push("/chat/create")}/>
     </SafeAreaView>
   );

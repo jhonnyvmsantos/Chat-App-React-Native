@@ -43,13 +43,13 @@ export default function ChatHeader({ chat }: Props) {
             >
                 <View style={styles.avatar}>
                     <Text style={styles.avatarLetter}>
-                        {chat.name[0]}
+                        {chat.title ? chat.title[0] : ""}
                     </Text>
                 </View>
 
                 <View>
                     <Text style={styles.name}>
-                        {chat.name}
+                        {chat.title}
                     </Text>
 
                     {chat.type === "group" && (
