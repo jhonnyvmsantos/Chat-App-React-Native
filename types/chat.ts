@@ -1,3 +1,4 @@
+import { FieldValue, Timestamp } from "firebase/firestore";
 import { Message } from "./message";
 import { User } from "./user";
 
@@ -9,5 +10,7 @@ export interface Chat {
   photoUrl?: string;
   title?: string;
   description?: string;
-  messages: Message[];
+  messages?: Message[];
+  createdAt: Timestamp | FieldValue;
+  updatedAt: Timestamp | FieldValue;
 }

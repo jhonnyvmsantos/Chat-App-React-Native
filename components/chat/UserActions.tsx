@@ -23,7 +23,7 @@ export default function UserActions({ user }: UserActionsProps) {
                 router.push({
                     pathname: "/chat/[id]",
                     params: {
-                        id: res?.id || "",
+                        id: res?.privateKey || "",
                     },
                 })
             }} />

@@ -1,18 +1,17 @@
 import { useState } from "react";
-
 import {
-    Pressable,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 
 export default function MessageInput() {
   const [message, setMessage] = useState("");
 
   function sendMessage() {
-    console.log(message);
+    
 
     setMessage("");
   }

@@ -1,40 +1,35 @@
-import { useLocalSearchParams } from "expo-router";
-import { StyleSheet, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-
+import MessageBubble from "@/components/chat/MessageBubble";
 import MessageInput from "@/components/chat/MessageInput";
-import { useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { Chat } from "@/types/chat";
+import { useLocalSearchParams } from "expo-router";
+import { useEffect, useState } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function ChatScreen() {
-  const { id, type } = useLocalSearchParams<{ id: string, type: "user" | "group" }>();
+  const { id } = useLocalSearchParams<{ id: string }>();
+  const { profile } = useAuth()
+
+  const [chat, setChat] = useState<Chat | null>(null)
 
   useEffect(() => {
-    if (type === "group") {
-      return;
-    }
-
-    // (() => {
-
-    // })()
+    
   }, [id])
 
   return (
     <SafeAreaView style={styles.container}>
       {/* <ChatHeader chat={chat} /> */}
 
-      <View>
-        {/* <FlatList
-        style={styles.list}
-        contentContainerStyle={styles.listContent}
-        data={[]}
-        keyExtractor={(item) => ""}
-        renderItem={({ item }) => (
-          <MessageBubble
-            msg={item}
-          />
-        )}
-      /> */}
+      <View style={styles.view}>
+        {chat?.messages && <FlatList
+          style={styles.list}
+          contentContainerStyle={styles.listContent}
+          data={chat.messages}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => <MessageBubble msg={item} />}
+        />}
       </View>
 
       <MessageInput />
@@ -47,11 +42,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ededed",
   },
-
+  view: {
+    flex: 1
+  },
   list: {
     flex: 1,
   },
-
   listContent: {
     paddingVertical: 10,
   },
