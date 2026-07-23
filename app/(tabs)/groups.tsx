@@ -8,7 +8,7 @@ export default function TabListGroupsChatScreen() {
       <Text style={styles.title}>Group Chats</Text>
       {/* <SearchBar /> */}
 
-      {/* <ListingChats chats={chats} type="group" /> */}
+      {/* <ListingInfo info={chats} type="group" /> */}
       {/* <FloatingAddButton onPress={() => router.push("/chat/create")}/> */}
     </SafeAreaView>
   );

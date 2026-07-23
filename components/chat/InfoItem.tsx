@@ -6,7 +6,7 @@ interface Props {
     info: Info;
 }
 
-export default function ChatItem({ info }: Props) {
+export default function InfoItem({ info }: Props) {
     return (
         <Pressable
             style={styles.container}
