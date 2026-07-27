@@ -1,22 +1,25 @@
 import {
-    addDoc,
-    collection,
-    doc,
-    getDoc,
-    getDocs,
-    limit,
-    query,
-    serverTimestamp,
-    setDoc,
-    where,
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  query,
+  serverTimestamp,
+  setDoc,
+  where,
 } from "firebase/firestore";
 
 import { db } from "@/firebase/config";
 import { Chat } from "@/types/chat";
 import { User } from "@/types/user";
-import { generatorPrivateKey } from "./infoService";
 
 const coll = collection(db, "chat");
+
+export function generatorPrivateKey(myUid: string, otherUid: string): string {
+  return [myUid, otherUid].sort().join("_");
+}
 
 export async function getChat(chatId: string) {
   const ref = doc(db, "chat", chatId);
@@ -56,6 +59,9 @@ export async function createPrivateChat(participants: User[]) {
     type: "user",
     participants,
     privateKey: key,
+    lastMessage: "",
+    lastMessageTime: null,
+    unreadCount: 0,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });
@@ -80,6 +86,9 @@ export async function createGroupChat(
     participants,
     description,
     photoUrl,
+    lastMessage: "",
+    lastMessageTime: null,
+    unreadCount: 0,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),
   });

@@ -22,7 +22,7 @@ export default function UserSearchResult({ user }: UserSearchResultProps) {
                     </Text>
                 </View>
 
-                <View style={styles.info}>
+                <View style={styles.chat}>
                     <Text style={styles.name}>{user?.displayName}</Text>
 
                     <Text style={styles.email}>
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 24,
     },
-    info: {
+    chat: {
         flex: 1,
         marginLeft: 16,
     },

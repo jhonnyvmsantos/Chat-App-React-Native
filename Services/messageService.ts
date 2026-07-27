@@ -1,12 +1,12 @@
 import { db } from "@/firebase/config";
 import { Message } from "@/types/message";
 import {
-    addDoc,
-    collection,
-    getDocs,
-    orderBy,
-    query,
-    serverTimestamp,
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
 } from "firebase/firestore";
 
 export async function sendMessage(
@@ -16,7 +16,7 @@ export async function sendMessage(
   replyTo?: string,
 ) {
   const docRef = await addDoc(collection(db, "chat", chatId, "messages"), {
-    infoId: chatId,
+    chatId: chatId,
     senderId,
     text,
     replyTo,

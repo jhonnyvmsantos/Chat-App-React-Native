@@ -11,6 +11,9 @@ export interface Chat {
   title?: string;
   description?: string;
   messages?: Message[];
+  lastMessage?: string;
+  lastMessageTime?: Timestamp | null;
+  unreadCount?: number;
   createdAt: Timestamp | FieldValue;
   updatedAt: Timestamp | FieldValue;
 }

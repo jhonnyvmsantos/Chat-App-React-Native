@@ -1,5 +1,5 @@
 import { auth } from "@/firebase/config";
-import { getProfile } from "@/Services/profileService";
+import { getProfile } from "@/services/profileService";
 import { User } from "@/types/user";
 import { User as FirebaseUser, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";

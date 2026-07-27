@@ -1,20 +1,19 @@
-import { Info } from "@/types/info";
+import { Chat } from "@/types/chat";
 import { FlatList, StyleSheet } from "react-native";
-import InfoItem from "./chat/InfoItem";
+import ChatItem from "./chat/ChatItem";
 
 interface Props {
-    info: Info[];
+    chat: Chat[];
     type: "user" | "group"
 }
 
-export default function ListingInfo
-({ info, type }: Props) {
+export default function ListingChat ({ chat, type }: Props) {
     return (
         <FlatList
-            data={info.filter((e) => e.type === type)}
+            data={chat.filter((e) => e.type === type)}
             keyExtractor={(item) => item.id || ""}
             renderItem={({ item }) => (
-                <InfoItem info={item} />
+                <ChatItem chat={item} />
             )}
             contentContainerStyle={styles.listContent}
         />

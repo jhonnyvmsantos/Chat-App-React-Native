@@ -1,19 +1,19 @@
-import { Info } from "@/types/info";
+import { Chat } from "@/types/chat";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 
 interface Props {
-    info: Info;
+    chat: Chat;
 }
 
-export default function ChatHeader({ info }: Props) {
+export default function ChatHeader({ chat }: Props) {
     function openProfile() {
-        if (info.type === "user") {
+        if (chat.type === "user") {
             router.push({
                 pathname: "/profile/user/[id]",
                 params: {
-                    id: info.id || "",
+                    id: chat.id || "",
                 },
             });
 
@@ -23,7 +23,7 @@ export default function ChatHeader({ info }: Props) {
         router.push({
             pathname: "/profile/group/[id]",
             params: {
-                id: info.id || "",
+                id: chat.id || "",
             },
         });
     }
@@ -43,18 +43,18 @@ export default function ChatHeader({ info }: Props) {
             >
                 <View style={styles.avatar}>
                     <Text style={styles.avatarLetter}>
-                        {info.title ? info.title[0] : ""}
+                        {chat.title ? chat.title[0] : ""}
                     </Text>
                 </View>
 
                 <View>
                     <Text style={styles.name}>
-                        {info.title}
+                        {chat.title}
                     </Text>
 
-                    {info.type === "group" && (
+                    {chat.type === "group" && (
                         <Text style={styles.subtitle}>
-                            {info.participants.length} membros
+                            {chat.participants.length} membros
                         </Text>
                     )}
                 </View>

@@ -1,12 +1,12 @@
-import { Info } from "@/types/info";
+import { Chat } from "@/types/chat";
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 interface Props {
-    info: Info;
+    chat: Chat;
 }
 
-export default function InfoItem({ info }: Props) {
+export default function ChatItem({ chat }: Props) {
     return (
         <Pressable
             style={styles.container}
@@ -14,20 +14,20 @@ export default function InfoItem({ info }: Props) {
                 router.push({
                     pathname: "/chat/[id]",
                     params: {
-                        id: info.id || "",
+                        id: chat.id || "",
                     },
                 })
             }
         >
-            {info.photoUrl ? (
+            {chat.photoUrl ? (
                 <Image
-                    source={{ uri: info.photoUrl }}
+                    source={{ uri: chat.photoUrl }}
                     style={styles.avatar}
                 />
             ) : (
                 <View style={styles.avatarPlaceholder}>
                     <Text style={styles.avatarLetter}>
-                        {info.title ? info.title[0] : ""}
+                        {chat.title ? chat.title[0] : ""}
                     </Text>
                 </View>
             )}
@@ -35,11 +35,11 @@ export default function InfoItem({ info }: Props) {
             <View style={styles.content}>
                 <View style={styles.header}>
                     <Text style={styles.name}>
-                        {info.title}
+                        {chat.title}
                     </Text>
 
                     <Text style={styles.time}>
-                        {info.lastMessageTime?.toDate().toLocaleString("pt-BR")}
+                        {chat.lastMessageTime?.toDate().toLocaleString("pt-BR")}
                     </Text>
                 </View>
 
@@ -48,13 +48,13 @@ export default function InfoItem({ info }: Props) {
                         numberOfLines={1}
                         style={styles.message}
                     >
-                        {info.lastMessage}
+                        {chat.lastMessage}
                     </Text>
 
-                    {!!info.unreadCount && (
+                    {!!chat.unreadCount && (
                         <View style={styles.badge}>
                             <Text style={styles.badgeText}>
-                                {info.unreadCount}
+                                {chat.unreadCount}
                             </Text>
                         </View>
                     )}

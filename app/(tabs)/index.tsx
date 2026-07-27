@@ -11,8 +11,6 @@ export default function TabListPrivateChatScreen() {
 
       {/* <SearchBar /> */}
 
-      {/* <ListingInfo info={chats} type="user" /> */}
-
       <FloatingAddButton onPress={() => router.push("/chat/create")} />
     </SafeAreaView>
   );
