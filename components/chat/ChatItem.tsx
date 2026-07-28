@@ -1,3 +1,4 @@
+import { useChat } from "@/contexts/ChatContext";
 import { Chat } from "@/types/chat";
 import { router } from "expo-router";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
@@ -7,12 +8,15 @@ interface Props {
 }
 
 export default function ChatItem({ chat }: Props) {
+    const { setCurrentChat } = useChat()
+
     return (
         <Pressable
             style={styles.container}
-            onPress={() =>
+            onPress={() => {
+                setCurrentChat(chat)
                 router.push({ pathname: "/chat", })
-            }
+            }}
         >
             {chat.photoUrl ? (
                 <Image
@@ -29,7 +33,7 @@ export default function ChatItem({ chat }: Props) {
 
             <View style={styles.content}>
                 <View style={styles.header}>
-                    <Text style={styles.name}>
+                    <Text style={styles.title}>
                         {chat.title}
                     </Text>
 
@@ -43,7 +47,7 @@ export default function ChatItem({ chat }: Props) {
                         numberOfLines={1}
                         style={styles.message}
                     >
-                        {chat.lastMessage}
+                        {chat.lastMessage || "Sem mensagens no chat."}
                     </Text>
 
                     {!!chat.unreadCount && (
@@ -106,7 +110,7 @@ const styles = StyleSheet.create({
         marginTop: 6,
     },
 
-    name: {
+    title: {
         fontSize: 16,
         fontWeight: "600",
     },

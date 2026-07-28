@@ -20,6 +20,17 @@ export default function ChatScreen() {
 
       const messages = await getMessages(currentChat?.id || "")
 
+      if (messages) {
+        const temp = messages.map(e => {
+          return {
+            ...e,
+            isMine: e.senderId === profile?.id,
+            isGroup: currentChat.type === "group",
+            senderName: currentChat.participants.find(item => item.id === e.senderId)?.displayName || ""
+          }
+        })
+      }
+
       setChat({
         ...currentChat,
         messages
@@ -28,7 +39,7 @@ export default function ChatScreen() {
   }, [chat?.id])
 
   useEffect(() => {
-    console.log({chat})
+    console.log(chat?.messages)
   }, [chat])
 
   return (

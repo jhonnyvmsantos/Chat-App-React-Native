@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function ListingChat ({ chats, type }: Props) {
-    console.log(chats[0])
     return (
         <FlatList
             data={chats.filter((e) => e.type === type)}

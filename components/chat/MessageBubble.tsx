@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { Message } from "@/types/message";
 
@@ -8,27 +8,31 @@ type Props = {
 
 export default function MessageBubble({ msg }: Props) {
     return (
-        // <View
-        //     style={[
-        //         styles.container,
-        //         msg.isMine ? styles.mine : styles.other,
-        //     ]}
-        // >
-        //     {!msg.isMine && msg.isGroup && (
-        //         <Text style={styles.sender}>
-        //             {msg.senderName}
-        //         </Text>
-        //     )}
+        <View
+            style={[
+                styles.container,
+                msg.isMine ? styles.mine : styles.other,
+            ]}
+        >
+            {!msg.isMine && msg.isGroup && (
+                <Text style={styles.sender}>
+                    {msg.senderName}
+                </Text>
+            )}
 
-        //     <Text style={styles.message}>
-        //         {msg.text}
-        //     </Text>
+            <Text style={styles.message}>
+                {msg.text}
+            </Text>
 
-        //     <Text style={styles.time}>
-        //         {msg.createdAt}
-        //     </Text>
-        // </View>
-        <></>
+            <Text style={styles.time}>
+                {"toDate" in msg.createdAt
+                    ? msg.createdAt.toDate().toLocaleString("pt-BR", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                    })
+                    : "..."}
+            </Text>
+        </View>
     );
 }
 

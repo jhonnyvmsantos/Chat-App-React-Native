@@ -14,13 +14,29 @@ export default function TabListPrivateChatScreen() {
 
   useEffect(() => {
     (async () => {
-      if (profile) {
-        const res = await getAllUserChats(profile, "user")
-        
-        setChats(res)
-      }
-    })()
-  }, [])
+      if (!profile) return;
+
+      const res = await getAllUserChats(profile, "user");
+
+      const chats = res.map((chat) => {
+        if (!chat.title && chat.type === "user") {
+          const otherUser = chat.participants.find(
+            (user) => user.id !== profile.id
+          );
+
+          return {
+            ...chat,
+            title: otherUser?.displayName ?? "Usuário",
+            description: otherUser?.bio ?? "Sem biografia"
+          };
+        }
+
+        return chat;
+      });
+
+      setChats(chats);
+    })();
+  }, [profile]);
 
   return (
     <SafeAreaView style={styles.container}>

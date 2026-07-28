@@ -33,9 +33,9 @@ export async function getMessages(chatId: string): Promise<Message[]> {
     orderBy("createdAt"),
   );
 
-  const snapshot = await getDocs(q);
+  const res = await getDocs(q);
 
-  return snapshot.docs.map((doc) => ({
+  return res.docs.map((doc) => ({
     id: doc.id,
     ...(doc.data() as Omit<Message, "id">),
   }));
