@@ -9,5 +9,4 @@ export type User = {
   createdAt?: Timestamp | FieldValue;
   isOnline?: boolean;
   lastSeen?: Timestamp | FieldValue | null;
-  emailSearch?: string[];
 };

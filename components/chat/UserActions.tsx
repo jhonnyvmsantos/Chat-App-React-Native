@@ -1,4 +1,5 @@
 import { useAuth } from "@/contexts/AuthContext";
+import { useChat } from "@/contexts/ChatContext";
 import { createPrivateChat, getPrivateChat } from "@/services/chatService";
 import { User } from "@/types/user";
 import { router } from "expo-router";
@@ -10,6 +11,7 @@ type UserActionsProps = {
 
 export default function UserActions({ user }: UserActionsProps) {
     const { profile } = useAuth()
+    const { setCurrentChat } = useChat()
 
     return (
         <View style={styles.container}>
@@ -20,12 +22,11 @@ export default function UserActions({ user }: UserActionsProps) {
                     res = await createPrivateChat([user, profile])
                 }
 
-                router.push({
-                    pathname: "/chat/[id]",
-                    params: {
-                        id: res?.privateKey || "",
-                    },
-                })
+                if (profile) {
+                    setCurrentChat(res)
+
+                    router.push("/chat")
+                }
             }} />
 
             <Action icon="👋" label="Hello!" onPress={() => Alert.alert("Hello")} />

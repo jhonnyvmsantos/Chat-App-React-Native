@@ -1,3 +1,4 @@
+import { sendMessage } from "@/services/messageService";
 import { useState } from "react";
 import {
   Pressable,
@@ -7,14 +8,14 @@ import {
   View,
 } from "react-native";
 
-export default function MessageInput() {
+interface Props {
+  chatId: string;
+  userId: string;
+  reply: string;
+}
+
+export default function MessageInput({ chatId, userId, reply }: Props) {
   const [message, setMessage] = useState("");
-
-  function sendMessage() {
-    
-
-    setMessage("");
-  }
 
   return (
     <View style={styles.container}>
@@ -27,7 +28,9 @@ export default function MessageInput() {
 
       <Pressable
         style={styles.button}
-        onPress={sendMessage}
+        onPress={async () => {
+          await sendMessage(chatId, userId, message, reply)
+        }}
       >
         <Text style={styles.buttonText}>
           Enviar

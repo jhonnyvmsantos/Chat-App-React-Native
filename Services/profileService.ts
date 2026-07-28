@@ -15,26 +15,11 @@ import {
 import { db } from "@/firebase/config";
 import { User } from "@/types/user";
 
-function createPrefixes(text: string) {
-  const prefixes: string[] = [];
-
-  let current = "";
-
-  for (const char of text.toLowerCase()) {
-    current += char;
-    prefixes.push(current);
-  }
-
-  return prefixes;
-}
-
 async function createProfile(
   uid: string,
   displayName: string,
   email: string,
 ): Promise<void> {
-  const prefixes = createPrefixes(email);
-
   const user: User = {
     displayName,
     email,
@@ -43,7 +28,6 @@ async function createProfile(
     createdAt: serverTimestamp(),
     isOnline: false,
     lastSeen: null,
-    emailSearch: prefixes,
   };
 
   await setDoc(doc(db, "profile", uid), user);
@@ -91,7 +75,7 @@ async function updatePhotoURL(uid: string, photoURL: string): Promise<void> {
 async function getProfileByEmail(email: string) {
   const q = query(
     collection(db, "profile"),
-    where("emailSearch", "array-contains", email.toLowerCase()),
+    where("email", "==", email.toLowerCase()),
     limit(10),
   );
 

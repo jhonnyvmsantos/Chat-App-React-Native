@@ -1,22 +1,35 @@
 import MessageBubble from "@/components/chat/MessageBubble";
 import MessageInput from "@/components/chat/MessageInput";
 import { useAuth } from "@/contexts/AuthContext";
+import { useChat } from "@/contexts/ChatContext";
+import { getMessages } from "@/services/messageService";
 import { Chat } from "@/types/chat";
-import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-
 export default function ChatScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
   const { profile } = useAuth()
+  const { currentChat } = useChat()
 
   const [chat, setChat] = useState<Chat | null>(null)
 
   useEffect(() => {
-    
-  }, [id])
+    (async () => {
+      if (!currentChat) return;
+
+      const messages = await getMessages(currentChat?.id || "")
+
+      setChat({
+        ...currentChat,
+        messages
+      })
+    })()
+  }, [chat?.id])
+
+  useEffect(() => {
+    console.log({chat})
+  }, [chat])
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,7 +45,7 @@ export default function ChatScreen() {
         />}
       </View>
 
-      <MessageInput />
+      <MessageInput chatId={chat?.id || ""} userId={profile?.id || ""} reply={""} />
     </SafeAreaView>
   );
 }
