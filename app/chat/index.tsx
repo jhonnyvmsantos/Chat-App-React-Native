@@ -2,7 +2,7 @@ import MessageBubble from "@/components/chat/MessageBubble";
 import MessageInput from "@/components/chat/MessageInput";
 import { useAuth } from "@/contexts/AuthContext";
 import { useChat } from "@/contexts/ChatContext";
-import { getMessages } from "@/services/messageService";
+import { getMessages } from "@/temp/messageService";
 import { Chat } from "@/types/chat";
 import { useEffect, useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";

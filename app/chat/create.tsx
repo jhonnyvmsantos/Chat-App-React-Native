@@ -1,6 +1,6 @@
 import UserSearchResult from "@/components/chat/SearchResult";
 import SearchBar from "@/components/SearchBar";
-import { getProfileByEmail } from "@/services/profileService";
+import { getProfileByEmail } from "@/temp/profileService";
 import { User } from "@/types/user";
 import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet } from "react-native";
