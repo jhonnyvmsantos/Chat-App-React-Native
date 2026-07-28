@@ -1,4 +1,4 @@
-import { sendMessage } from "@/temp/messageService";
+import { sendMessage } from "@/services/messageService";
 import { useState } from "react";
 import {
   Pressable,

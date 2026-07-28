@@ -1,6 +1,6 @@
 import { Alert, Pressable, StyleSheet, Text } from "react-native";
 
-import { login, register } from "@/temp/authService";
+import { login, register } from "@/services/authService";
 
 type Props = {
     mode: "login" | "register";

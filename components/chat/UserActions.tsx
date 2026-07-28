@@ -1,6 +1,6 @@
 import { useAuth } from "@/contexts/AuthContext";
 import { useChat } from "@/contexts/ChatContext";
-import { createPrivateChat, getPrivateChat } from "@/temp/chatService";
+import { createPrivateChat, getPrivateChat } from "@/services/chatService";
 import { User } from "@/types/user";
 import { router } from "expo-router";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
