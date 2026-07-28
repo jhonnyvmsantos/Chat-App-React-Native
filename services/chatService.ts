@@ -99,3 +99,21 @@ export async function createGroupChat(
 
   return getChat(docRef.id);
 }
+
+export async function getAllUserChats(
+  profile: User,
+  type: "user" | "group",
+): Promise<Chat[]> {
+  const q = query(
+    collection(db, "chat"),
+    where("participants", "array-contains", profile),
+    where("type", "==", type),
+  );
+
+  const res = await getDocs(q);
+
+  return res.docs.map((doc) => ({
+    id: doc.id,
+    ...(doc.data() as Omit<Chat, "id">),
+  }));
+}

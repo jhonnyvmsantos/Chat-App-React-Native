@@ -11,12 +11,7 @@ export default function ChatItem({ chat }: Props) {
         <Pressable
             style={styles.container}
             onPress={() =>
-                router.push({
-                    pathname: "/chat/[id]",
-                    params: {
-                        id: chat.id || "",
-                    },
-                })
+                router.push({ pathname: "/chat", })
             }
         >
             {chat.photoUrl ? (
