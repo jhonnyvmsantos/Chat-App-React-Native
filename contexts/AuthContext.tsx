@@ -1,5 +1,6 @@
 import { auth } from "@/firebase/config";
 import { getProfile } from "@/services/profileService";
+import { refleshSession } from "@/services/sessionService";
 import { User } from "@/types/user";
 import { User as FirebaseUser, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
@@ -9,7 +10,7 @@ type AuthContextData = {
     profile: User | null;
     loading: boolean;
 
-    refreshProfile: () => Promise<void>;
+    refreshProfile: (user: FirebaseUser | null) => Promise<void>;
 };
 
 type AuthProviderProps = {
@@ -25,9 +26,7 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     const [loading, setLoading] = useState(true);
 
-    async function refreshProfile() {
-        const user = auth.currentUser;
-
+    async function refreshProfile(user: FirebaseUser | null) {
         if (!user) {
             setAuthUser(null);
             setProfile(null);
@@ -39,11 +38,13 @@ function AuthProvider({ children }: AuthProviderProps) {
         const profile = await getProfile(user.uid);
 
         setProfile(profile);
+
+        profile && await refleshSession(profile)
     }
 
     useEffect(() => {
-        const state = onAuthStateChanged(auth, async () => {
-            await refreshProfile();
+        const state = onAuthStateChanged(auth, async (user) => {
+            await refreshProfile(user);
             setLoading(false);
         },);
 

@@ -9,6 +9,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createProfile } from "./profileService";
+import { clearSession } from "./sessionService";
 
 async function register(
   displayName: string,
@@ -51,6 +52,7 @@ async function login(email: string, password: string): Promise<void> {
 async function logout(): Promise<void> {
   try {
     await signOut(auth);
+    clearSession();
   } catch (error) {
     throw new AppError(
       ErrorCode.AUTH_LOGOUT,
