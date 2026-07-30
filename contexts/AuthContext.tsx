@@ -26,17 +26,15 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     const [loading, setLoading] = useState(true);
 
+    function clearAuth() {
+        setAuthUser(null);
+        setProfile(null);
+    }
+
     async function refreshProfile(user: FirebaseUser | null) {
-        if (!user) {
-            setAuthUser(null);
-            setProfile(null);
-            return;
-        }
+        const profile = await getProfile(user?.uid || "");
 
         setAuthUser(user);
-
-        const profile = await getProfile(user.uid);
-
         setProfile(profile);
 
         profile && await refleshSession(profile)
@@ -44,9 +42,24 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     useEffect(() => {
         const state = onAuthStateChanged(auth, async (user) => {
+            console.log({user});
+            if (!user) {
+                clearAuth();
+                setLoading(false);
+                return;
+            }
+
+            // const valid = await validateSession();
+            // if (!valid) {
+            //     clearAuth();
+            //     await logout();
+            //     setLoading(false);
+            //     return;
+            // }
+
             await refreshProfile(user);
             setLoading(false);
-        },);
+        });
 
         return state;
     }, []);
