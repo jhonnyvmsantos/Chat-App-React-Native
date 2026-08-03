@@ -22,11 +22,10 @@ export const db = getFirestore(app);
 
 export const auth = (() => {
   try {
-    return initializeAuth(app, {
-      persistence: getReactNativePersistence(AsyncStorage),
-    });
+    const persistence = getReactNativePersistence(AsyncStorage);
+
+    return initializeAuth(app, { persistence });
   } catch {
-    // Evita erro durante Hot Reload/Fast Refresh
     return getAuth(app);
   }
 })();
