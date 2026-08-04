@@ -1,9 +1,6 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getApp, getApps, initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import {
-  getAuth,
-  getReactNativePersistence,
-  initializeAuth,
+  getAuth
 } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
@@ -16,19 +13,9 @@ export const firebaseConfig = {
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID!,
 };
 
-const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
-
-export const auth = (() => {
-  try {
-    return initializeAuth(app, {
-      persistence: getReactNativePersistence(AsyncStorage),
-    });
-  } catch {
-    // Evita erro durante Hot Reload/Fast Refresh
-    return getAuth(app);
-  }
-})();
+export const auth = getAuth(app);
 
 export default app;
