@@ -1,6 +1,7 @@
 import { auth } from "@/firebase/config";
+import { logout } from "@/services/authService";
 import { getProfile } from "@/services/profileService";
-import { refleshSession } from "@/services/sessionService";
+import { refleshSession, validateSession } from "@/services/sessionService";
 import { User } from "@/types/user";
 import { User as FirebaseUser, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
@@ -42,20 +43,19 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     useEffect(() => {
         const state = onAuthStateChanged(auth, async (user) => {
-            console.log({user});
             if (!user) {
                 clearAuth();
                 setLoading(false);
                 return;
             }
 
-            // const valid = await validateSession();
-            // if (!valid) {
-            //     clearAuth();
-            //     await logout();
-            //     setLoading(false);
-            //     return;
-            // }
+            const valid = await validateSession();
+            if (!valid) {
+                clearAuth();
+                await logout();
+                setLoading(false);
+                return;
+            }
 
             await refreshProfile(user);
             setLoading(false);

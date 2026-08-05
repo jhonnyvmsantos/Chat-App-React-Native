@@ -23,7 +23,6 @@ export async function refleshSession(profile: User): Promise<void> {
 
 export async function getSession(): Promise<Session | null> {
   const session = await AsyncStorage.getItem(StorageKeys.SESSION);
-
   if (!session) return null;
 
   return JSON.parse(session);

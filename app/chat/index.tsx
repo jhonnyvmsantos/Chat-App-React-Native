@@ -38,10 +38,6 @@ export default function ChatScreen() {
     })()
   }, [chat?.id])
 
-  useEffect(() => {
-    console.log(chat?.messages)
-  }, [chat])
-
   return (
     <SafeAreaView style={styles.container}>
       {/* <ChatHeader chat={chat} /> */}
